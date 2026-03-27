@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bareeq Alysr | Admin Console</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-container": "#131b2e",
+              "outline-variant": "#c6c6cd",
+              "primary-fixed": "#dae2fd",
+              "on-surface-variant": "#45464d",
+              "error": "#ba1a1a",
+              "secondary": "#515f74",
+              "inverse-primary": "#bec6e0",
+              "surface-tint": "#565e74",
+              "on-tertiary-container": "#0c9488",
+              "on-background": "#0b1c30",
+              "primary-fixed-dim": "#bec6e0",
+              "on-error-container": "#93000a",
+              "secondary-container": "#d5e3fc",
+              "on-primary-container": "#7c839b",
+              "on-secondary": "#ffffff",
+              "error-container": "#ffdad6",
+              "surface-variant": "#d3e4fe",
+              "primary": "#000000",
+              "on-primary-fixed": "#131b2e",
+              "on-tertiary": "#ffffff",
+              "surface-container-high": "#dce9ff",
+              "on-error": "#ffffff",
+              "background": "#f8f9ff",
+              "on-secondary-fixed-variant": "#3a485b",
+              "surface-dim": "#cbdbf5",
+              "surface-container-low": "#eff4ff",
+              "on-primary-fixed-variant": "#3f465c",
+              "on-tertiary-fixed": "#00201d",
+              "inverse-surface": "#213145",
+              "on-tertiary-fixed-variant": "#005049",
+              "tertiary-fixed": "#89f5e7",
+              "on-secondary-fixed": "#0d1c2e",
+              "on-primary": "#ffffff",
+              "tertiary-container": "#00201d",
+              "surface-bright": "#f8f9ff",
+              "outline": "#76777d",
+              "tertiary": "#000000",
+              "on-surface": "#0b1c30",
+              "on-secondary-container": "#57657a",
+              "surface-container-lowest": "#ffffff",
+              "surface": "#f8f9ff",
+              "secondary-fixed-dim": "#b9c7df",
+              "tertiary-fixed-dim": "#6bd8cb",
+              "surface-container": "#e5eeff",
+              "inverse-on-surface": "#eaf1ff",
+              "surface-container-highest": "#d3e4fe",
+              "secondary-fixed": "#d5e3fc"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(20px);
+      }
+      .success-stripe {
+        border-left: 4px solid #89f5e7;
+      }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-slate-200/30 bg-slate-50 flex flex-col py-8 px-4 gap-2 z-40">
+<div class="mb-10 px-4">
+<h1 class="font-black text-slate-900 text-xl tracking-tighter">Bareeq Alysr</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-primary-container font-bold">Enterprise Vault</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-full hover:translate-x-1 transition-transform duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-sm font-medium">Merchant Overview</span>
+</a>
+<!-- Active Tab: Admin Console -->
+<a class="flex items-center gap-3 px-4 py-3 bg-teal-500/10 text-teal-700 rounded-full font-semibold transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-xl">admin_panel_settings</span>
+<span class="text-sm">Admin Console</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-full hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-xl">receipt_long</span>
+<span class="text-sm font-medium">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-full hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-xl">account_balance_wallet</span>
+<span class="text-sm font-medium">Settlements</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-full hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-xl">history_edu</span>
+<span class="text-sm font-medium">Audit Log</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-full hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-xl">contact_support</span>
+<span class="text-sm font-medium">Support</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-slate-200/30 pt-6 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-full" href="#">
+<span class="material-symbols-outlined text-xl">description</span>
+<span class="text-sm font-medium">Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-full" href="#">
+<span class="material-symbols-outlined text-xl">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 right-0 left-64 h-16 bg-white/60 backdrop-blur-md z-30 border-b border-slate-200/50 flex justify-between items-center px-8">
+<div class="flex items-center gap-8">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="bg-surface-container-low border-none rounded-xl pl-10 pr-4 py-2 text-sm w-80 focus:ring-2 focus:ring-primary/10 transition-all" placeholder="Search merchant ID or tax number..." type="text"/>
+</div>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-bold text-teal-600 border-b-2 border-teal-500 py-5" href="#">Analytics</a>
+<a class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-100/50 rounded-lg transition-colors">
+<span class="material-symbols-outlined">language</span>
+</button>
+<button class="p-2 hover:bg-slate-100/50 rounded-lg transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 hover:bg-slate-100/50 rounded-lg transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="ml-2 w-8 h-8 rounded-full overflow-hidden bg-surface-container">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="professional male portrait with neutral background and clean corporate attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI-bbyGd3Aoc3qBEo4suzc9_9iotdSBS27Rn2z7xCXjW8WJgbLwT5ADV8PjFFyS-NkaT3CJY4fwPqe45KpshWm6foj1FLv1bkDp-NhMjn3HYbrnfzJjcD1TEo5WVKe1TH8x94BWz6suBCz115FWxTteL7U3_KIMLLwWgiTeep7giV52mvikXiWb62OhLOptjCbvP5z8_9zOf-MRk_IHZLirh_x1GYZPdSu_inYK_2HABeK__f73dktQ7Z3_zZ75MYVgyNTRVZrV-0o"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 px-10 pb-12 min-h-screen">
+<!-- Hero Section & Stats -->
+<div class="flex justify-between items-end mb-10">
+<div>
+<p class="text-label-sm font-bold uppercase tracking-[0.2em] text-on-primary-container mb-1">Vault Administration</p>
+<h2 class="text-4xl font-headline font-extrabold tracking-tight text-on-background">Merchant Verification</h2>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container text-on-secondary-container px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-surface-container-high transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">download</span>
+                    Export CSV
+                </button>
+<button class="bg-primary-container text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity flex items-center gap-2 shadow-lg shadow-primary-container/20">
+<span class="material-symbols-outlined text-lg">add</span>
+                    Register New Merchant
+                </button>
+</div>
+</div>
+<!-- KPI Grid (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+<div class="bg-surface-container-lowest p-6 rounded-xl success-stripe flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Pending Review</p>
+<p class="text-3xl font-headline font-extrabold text-on-background">24</p>
+</div>
+<div class="mt-4 flex items-center text-xs text-on-secondary-fixed-variant gap-1">
+<span class="material-symbols-outlined text-teal-600 text-sm">trending_up</span>
+<span class="font-bold">12%</span> increase from yesterday
+                </div>
+<div class="absolute -right-4 -bottom-4 opacity-5 text-primary-container">
+<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col justify-between shadow-sm border-l-4 border-slate-100">
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Onboarded This Month</p>
+<p class="text-3xl font-headline font-extrabold text-on-background">1,284</p>
+</div>
+<div class="mt-4 flex items-center text-xs text-on-secondary-fixed-variant gap-1">
+<span class="material-symbols-outlined text-teal-600 text-sm">verified_user</span>
+<span class="font-bold text-on-tertiary-container">98.2%</span> Approval rate
+                </div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col justify-between shadow-sm border-l-4 border-slate-100">
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Average Review Time</p>
+<p class="text-3xl font-headline font-extrabold text-on-background">4.2h</p>
+</div>
+<div class="mt-4 flex items-center text-xs text-on-secondary-fixed-variant gap-1">
+<span class="material-symbols-outlined text-error text-sm">schedule</span>
+                    SLA target: 6.0h
+                </div>
+</div>
+<div class="bg-primary-container p-6 rounded-xl flex flex-col justify-between shadow-xl text-white relative">
+<div class="relative z-10">
+<p class="text-xs font-bold text-on-primary-container uppercase tracking-wider mb-1">Total Merchant Volume</p>
+<p class="text-3xl font-headline font-extrabold">SAR 12.8M</p>
+</div>
+<div class="mt-4 flex items-center text-xs text-teal-400 gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">payments</span>
+                    Net settlement volume
+                </div>
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 12px 12px;"></div>
+</div>
+</div>
+<!-- Main Table Section -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+<!-- Table Controls -->
+<div class="px-6 py-5 flex items-center justify-between bg-surface-container-low/30">
+<div class="flex items-center gap-4">
+<div class="flex items-center border border-outline-variant/30 rounded-lg overflow-hidden">
+<button class="px-4 py-2 bg-white text-sm font-bold text-on-background border-r border-outline-variant/30">All Merchants</button>
+<button class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-white/50 transition-colors">Risk Flagged</button>
+</div>
+<div class="h-6 w-px bg-outline-variant/30 mx-2"></div>
+<button class="flex items-center gap-2 text-sm font-medium text-on-surface-variant hover:text-on-background">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+                        Filters
+                    </button>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-on-surface-variant uppercase mr-2">Bulk Actions:</span>
+<button class="bg-surface-container-highest px-3 py-1.5 rounded-lg text-xs font-bold text-on-primary-fixed-variant hover:bg-surface-variant transition-colors">Approve Selected</button>
+<button class="bg-error-container px-3 py-1.5 rounded-lg text-xs font-bold text-on-error-container hover:opacity-80 transition-opacity">Reject Selected</button>
+</div>
+</div>
+<!-- The Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-6 py-4">
+<input class="rounded border-outline-variant text-teal-600 focus:ring-teal-500" type="checkbox"/>
+</th>
+<th class="px-6 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-wider">Merchant Entity</th>
+<th class="px-6 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-wider">Category</th>
+<th class="px-6 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-wider">Volume (30d)</th>
+<th class="px-6 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100">
+<!-- Row 1: Pending -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-4">
+<input class="rounded border-outline-variant text-teal-600 focus:ring-teal-500" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed-dim flex items-center justify-center font-bold text-primary-container">AZ</div>
+<div>
+<p class="font-bold text-on-background text-sm">Al-Zamil Retail Group</p>
+<p class="text-xs text-on-surface-variant">ID: BQ-29384-LX</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container px-2.5 py-1 rounded-md text-xs font-medium text-on-secondary-container">Home Electronics</span>
+</td>
+<td class="px-6 py-4 font-headline font-bold text-sm text-on-background">SAR 452,000</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-secondary-container text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                    Pending Review
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-tertiary-fixed rounded-lg text-on-tertiary-container transition-colors" title="Verify">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+</button>
+<button class="p-2 hover:bg-error-container rounded-lg text-on-error-container transition-colors" title="Reject">
+<span class="material-symbols-outlined text-lg">cancel</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Verified -->
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-4">
+<input class="rounded border-outline-variant text-teal-600 focus:ring-teal-500" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-tertiary-fixed-dim flex items-center justify-center font-bold text-on-tertiary-fixed">DS</div>
+<div>
+<p class="font-bold text-on-background text-sm">Desert Sands Boutique</p>
+<p class="text-xs text-on-surface-variant">ID: BQ-11029-KM</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container px-2.5 py-1 rounded-md text-xs font-medium text-on-secondary-container">Fashion &amp; Apparel</span>
+</td>
+<td class="px-6 py-4 font-headline font-bold text-sm text-on-background">SAR 1.2M</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-tertiary-container text-on-tertiary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                                    Verified
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-variant rounded-lg text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg">analytics</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Rejected -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-4">
+<input class="rounded border-outline-variant text-teal-600 focus:ring-teal-500" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-slate-200 flex items-center justify-center font-bold text-slate-600">NX</div>
+<div>
+<p class="font-bold text-on-background text-sm">Nexus Trading LLC</p>
+<p class="text-xs text-on-surface-variant">ID: BQ-88271-XN</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container px-2.5 py-1 rounded-md text-xs font-medium text-on-secondary-container">General Trade</span>
+</td>
+<td class="px-6 py-4 font-headline font-bold text-sm text-on-background">SAR 0</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-error-container text-on-error-container">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                    Rejected
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-variant rounded-lg text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg">settings_backup_restore</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Pending -->
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-4">
+<input class="rounded border-outline-variant text-teal-600 focus:ring-teal-500" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center font-bold text-on-secondary-container">SA</div>
+<div>
+<p class="font-bold text-on-background text-sm">Skyline Automobiles</p>
+<p class="text-xs text-on-surface-variant">ID: BQ-45521-PP</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container px-2.5 py-1 rounded-md text-xs font-medium text-on-secondary-container">Automotive</span>
+</td>
+<td class="px-6 py-4 font-headline font-bold text-sm text-on-background">SAR 89,200</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-secondary-container text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                    Pending Review
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-tertiary-fixed rounded-lg text-on-tertiary-container transition-colors">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+</button>
+<button class="p-2 hover:bg-error-container rounded-lg text-on-error-container transition-colors">
+<span class="material-symbols-outlined text-lg">cancel</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer/Pagination -->
+<div class="px-6 py-4 border-t border-slate-100 flex items-center justify-between">
+<p class="text-xs text-on-surface-variant font-medium">Showing <span class="text-on-background font-bold">1-10</span> of <span class="text-on-background font-bold">284</span> merchants</p>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant/30 text-on-surface-variant hover:bg-surface-container-low transition-colors disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary-container text-white text-xs font-bold">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-low text-xs font-bold">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-low text-xs font-bold">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant/30 text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Secondary Layout: Information Cards -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10">
+<!-- Documentation/Quick Tips -->
+<div class="lg:col-span-1 bg-surface-dim p-8 rounded-xl relative overflow-hidden group">
+<div class="relative z-10">
+<h3 class="font-headline font-extrabold text-xl text-on-background mb-4">Verification Logic</h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-teal-600 mt-0.5">verified</span>
+<div>
+<p class="text-sm font-bold text-on-background">Identity Check</p>
+<p class="text-xs text-on-primary-container">Automated CR and VAT validation against government databases.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-teal-600 mt-0.5">shield</span>
+<div>
+<p class="text-sm font-bold text-on-background">KYB Protocols</p>
+<p class="text-xs text-on-primary-container">Ultimate Beneficial Owner (UBO) screening against sanctions lists.</p>
+</div>
+</li>
+</ul>
+<button class="mt-8 text-sm font-bold text-teal-700 flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Review Compliance Policy
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<!-- Abstract Pattern -->
+<div class="absolute right-0 top-0 h-full w-32 opacity-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[120px] rotate-12">policy</span>
+</div>
+</div>
+<!-- Recent Log Activity -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-slate-100/50">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline font-extrabold text-xl text-on-background">Audit Timeline</h3>
+<button class="text-xs font-bold text-on-surface-variant hover:text-primary transition-colors">View All Logs</button>
+</div>
+<div class="space-y-6">
+<div class="flex gap-4 items-start">
+<div class="w-2 h-2 rounded-full bg-teal-500 mt-2 shadow-[0_0_8px_rgba(20,184,166,0.5)]"></div>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<p class="text-sm font-bold text-on-background">Merchant Verified: Desert Sands Boutique</p>
+<span class="text-[10px] text-on-surface-variant font-medium">Just now</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1">Processed by System (Auto-Approval based on High Trust Score)</p>
+</div>
+</div>
+<div class="flex gap-4 items-start">
+<div class="w-2 h-2 rounded-full bg-slate-300 mt-2"></div>
+<div class="flex-1 border-b border-slate-50 pb-6">
+<div class="flex justify-between items-center">
+<p class="text-sm font-bold text-on-background">New Application: Al-Zamil Retail Group</p>
+<span class="text-[10px] text-on-surface-variant font-medium">14 mins ago</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1">CR Document uploaded. Awaiting manual reviewer assignment.</p>
+</div>
+</div>
+<div class="flex gap-4 items-start">
+<div class="w-2 h-2 rounded-full bg-error mt-2"></div>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<p class="text-sm font-bold text-on-background">Rejected: Nexus Trading LLC</p>
+<span class="text-[10px] text-on-surface-variant font-medium">1 hour ago</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1">Flagged for inconsistent tax filings in Q3. Action taken by Admin #442.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB - suppressed for Management Screens as per rules, but included if primary action is critical -->
+<!-- (Hidden based on rule: suppress FAB on Settings/Details/Transactional screens) -->
+</body></html>

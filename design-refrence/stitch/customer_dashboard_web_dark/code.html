@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bareeq Alysr | Customer Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-fixed": "#131b2e",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "background": "#0b1c30",
+                        "surface-container-high": "#1e293b",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#450a0a",
+                        "surface-variant": "#1e293b",
+                        "primary": "#ffffff",
+                        "surface-tint": "#565e74",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-container": "#89f5e7",
+                        "on-background": "#f8f9ff",
+                        "secondary-container": "#1e293b",
+                        "on-primary-container": "#7c839b",
+                        "primary-fixed": "#dae2fd",
+                        "on-surface-variant": "#c6c6cd",
+                        "primary-container": "#131b2e",
+                        "outline-variant": "#334155",
+                        "error": "#ffb4ab",
+                        "secondary": "#b9c7df",
+                        "inverse-primary": "#565e74",
+                        "tertiary-fixed-dim": "#6bd8cb",
+                        "surface-container": "#0f172a",
+                        "inverse-on-surface": "#0b1c30",
+                        "surface-container-highest": "#334155",
+                        "secondary-fixed": "#d5e3fc",
+                        "tertiary-container": "#00201d",
+                        "surface-bright": "#1e293b",
+                        "tertiary": "#89f5e7",
+                        "on-surface": "#f8f9ff",
+                        "outline": "#8e9199",
+                        "surface-container-lowest": "#020617",
+                        "surface": "#0b1c30",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "on-secondary-container": "#d5e3fc",
+                        "on-tertiary-fixed-variant": "#005049",
+                        "tertiary-fixed": "#89f5e7",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "on-primary": "#000000",
+                        "surface-dim": "#0b1c30",
+                        "surface-container-low": "#0f172a",
+                        "on-primary-fixed-variant": "#dae2fd",
+                        "on-secondary-fixed-variant": "#b9c7df",
+                        "on-tertiary-fixed": "#00201d",
+                        "inverse-surface": "#f8f9ff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #020617;
+            color: #f8f9ff;
+        }
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="font-body antialiased">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-lowest flex flex-col py-8 px-4 gap-2 z-50 border-r border-outline-variant/15">
+<div class="px-4 mb-8">
+<h1 class="font-headline text-xl font-black tracking-tighter text-tertiary">Bareeq Alysr</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold">Enterprise Vault</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-tertiary/10 text-tertiary rounded-full font-semibold transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label text-sm">Merchant Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label text-sm">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label text-sm">Settlements</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-label text-sm">Audit Log</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-label text-sm">Support</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/15 flex flex-col gap-1">
+<button class="w-full mb-4 py-2.5 px-4 bg-surface-container text-xs font-bold rounded-xl border border-outline-variant/30 text-on-surface hover:bg-surface-container-high transition-colors">
+                Switch to Merchant View
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-full text-sm" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-error hover:bg-error-container/20 rounded-full text-sm" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen bg-surface p-8">
+<!-- Header Section -->
+<header class="flex justify-between items-center mb-10">
+<div>
+<h2 class="font-headline text-3xl font-extrabold tracking-tight text-on-surface">Marhaba, Ahmed</h2>
+<p class="text-on-surface-variant text-sm mt-1">Your financial pulse is looking healthy today.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative p-2 bg-surface-container rounded-xl hover:bg-surface-container-high cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-tertiary rounded-full border-2 border-surface"></span>
+</div>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
+<div class="text-right">
+<p class="text-sm font-bold text-on-surface leading-none">Ahmed Al-Saud</p>
+<p class="text-[11px] text-tertiary font-medium">Premium Member</p>
+</div>
+<img alt="Ahmed Profile" class="w-10 h-10 rounded-full border-2 border-tertiary/20" data-alt="Close-up portrait of a professional man in a business suit with neutral background and soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpwWW1JpKWfYnNxAzAHM-QDwaWkwZ1oEakRQUFiP9cckPzpzXiYlo96zoxGFK5Nrlf7vMSX2V4Q3JAOEngHwBcR0_q-ykSV_W0VeuK3oth4dR9Ee88f6bKUMUN2IalYT3ab3NtoY0Uo77zIguR3x_zButH5gAT3do3tWRCO9OV3QM64xPb4JsMywHXvg6WZ6gUqDJLuM16n1l24iAAh5covJx9KURgG7jH92DGR4-1HsTV4sELxPHZZEhmb7Ut4cRfeB8xgRnxyrPR"/>
+</div>
+</div>
+</header>
+<!-- KPI Grid (Financial Cards) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<!-- Available Balance -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Available Balance</span>
+<span class="material-symbols-outlined text-tertiary text-xl">account_balance_wallet</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-on-surface">SAR 12,450.00</h3>
+<p class="text-[10px] text-tertiary mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">trending_up</span> +2.4% from last month
+                </p>
+</div>
+<!-- Outstanding Balance -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline-variant"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Outstanding</span>
+<span class="material-symbols-outlined text-on-surface-variant text-xl">pending_actions</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-on-surface">SAR 3,210.50</h3>
+<p class="text-[10px] text-on-surface-variant mt-2">Next refresh in 4 hours</p>
+</div>
+<!-- Credit Limit -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Credit Limit</span>
+<span class="material-symbols-outlined text-on-surface-variant text-xl">credit_card</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-on-surface">SAR 25,000.00</h3>
+<div class="w-full bg-surface-container h-1 rounded-full mt-4">
+<div class="bg-tertiary h-1 rounded-full w-[48%]"></div>
+</div>
+</div>
+<!-- Next Payment Due -->
+<div class="bg-primary-container p-6 rounded-xl relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="text-on-primary-container text-xs font-bold uppercase tracking-wider">Next Payment</span>
+<span class="material-symbols-outlined text-tertiary text-xl">event_repeat</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-primary">SAR 1,150.00</h3>
+<p class="text-[11px] text-tertiary font-bold mt-2">DUE IN 3 DAYS</p>
+</div>
+</div>
+<!-- Main Layout Split -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left & Center Column: Transactions & Requests -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Pending Purchase Requests -->
+<section>
+<div class="flex justify-between items-center mb-4">
+<h4 class="font-headline text-lg font-bold text-on-surface">Pending Purchase Requests</h4>
+<button class="text-xs text-tertiary font-bold hover:underline">View All</button>
+</div>
+<div class="space-y-3">
+<!-- Request Card -->
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center justify-between border border-outline-variant/5">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface">shopping_cart</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Apple Store - iPhone 15 Pro</p>
+<p class="text-xs text-on-surface-variant">Riyadh Park • 2 hours ago</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<p class="text-sm font-bold text-on-surface">SAR 4,599.00</p>
+<p class="text-[10px] text-on-surface-variant">3 Installments</p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 bg-error-container/30 text-error rounded-lg hover:bg-error-container/50 transition-colors">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+<button class="p-2 bg-tertiary/10 text-tertiary rounded-lg hover:bg-tertiary/20 transition-colors">
+<span class="material-symbols-outlined text-sm">check</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Request Card -->
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center justify-between border border-outline-variant/5">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface">flight</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Saudia Airlines - DXB Return</p>
+<p class="text-xs text-on-surface-variant">Online Booking • 5 hours ago</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<p class="text-sm font-bold text-on-surface">SAR 1,240.00</p>
+<p class="text-[10px] text-on-surface-variant">Pay in 4</p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 bg-error-container/30 text-error rounded-lg hover:bg-error-container/50 transition-colors">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+<button class="p-2 bg-tertiary/10 text-tertiary rounded-lg hover:bg-tertiary/20 transition-colors">
+<span class="material-symbols-outlined text-sm">check</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Transactions Table -->
+<section>
+<h4 class="font-headline text-lg font-bold text-on-surface mb-4">Recent Transactions</h4>
+<div class="bg-surface-container-low rounded-xl overflow-hidden">
+<table class="w-full text-left text-sm">
+<thead class="bg-surface-container-high/50 text-on-surface-variant uppercase text-[10px] font-bold tracking-widest">
+<tr>
+<th class="px-6 py-4">Transaction Details</th>
+<th class="px-6 py-4">Date</th>
+<th class="px-6 py-4">Amount</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-highest/20 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">local_mall</span>
+</div>
+<span class="font-medium text-on-surface">Jarir Bookstore</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Oct 24, 2023</td>
+<td class="px-6 py-4 font-bold text-on-surface">SAR 850.00</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold uppercase bg-tertiary-container text-tertiary">Paid</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-on-surface">more_vert</button>
+</td>
+</tr>
+<tr class="bg-surface-container-lowest/30 hover:bg-surface-container-highest/20 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">restaurant</span>
+</div>
+<span class="font-medium text-on-surface">Al-Baik Riyadh</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Oct 22, 2023</td>
+<td class="px-6 py-4 font-bold text-on-surface">SAR 120.50</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold uppercase bg-surface-container-highest text-on-surface-variant">Pending</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-on-surface">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-highest/20 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">coffee</span>
+</div>
+<span class="font-medium text-on-surface">Starbucks Reserve</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Oct 20, 2023</td>
+<td class="px-6 py-4 font-bold text-on-surface">SAR 45.00</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold uppercase bg-secondary-container/30 text-secondary">Partial</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-on-surface">more_vert</button>
+</td>
+</tr>
+<tr class="bg-surface-container-lowest/30 hover:bg-surface-container-highest/20 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">electric_car</span>
+</div>
+<span class="font-medium text-on-surface">Lucid Motors Service</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Oct 15, 2023</td>
+<td class="px-6 py-4 font-bold text-on-surface">SAR 2,100.00</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold uppercase bg-error-container/50 text-error">Overdue</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-on-surface">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Right Column: Sidebar Actions & Details -->
+<div class="space-y-8">
+<!-- Upcoming Payments Card -->
+<section class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
+<h4 class="font-headline text-md font-bold text-on-surface mb-6">Upcoming Payment</h4>
+<div class="flex items-end justify-between mb-2">
+<p class="text-2xl font-black text-on-surface">SAR 1,150.00</p>
+<p class="text-xs text-on-surface-variant font-medium">Due Nov 01</p>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full mb-6">
+<div class="bg-tertiary h-2 rounded-full w-[75%]"></div>
+</div>
+<div class="flex flex-col gap-3">
+<button class="w-full py-3 bg-tertiary text-on-tertiary font-bold rounded-xl hover:opacity-90 transition-opacity">
+                            Pay Now
+                        </button>
+<button class="w-full py-3 bg-surface-container text-on-surface text-sm font-semibold rounded-xl hover:bg-surface-container-high transition-colors">
+                            View Installment Plan
+                        </button>
+</div>
+</section>
+<!-- Customer Code Card -->
+<section class="bg-primary-container p-6 rounded-xl relative overflow-hidden group">
+<!-- Geometric Pattern Overlay -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#dae2fd 1px, transparent 1px); background-size: 16px 16px;"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-tertiary text-lg">qr_code_2</span>
+<h4 class="text-xs font-bold text-on-primary-container uppercase tracking-widest">Digital Vault Code</h4>
+</div>
+<div class="bg-surface-container-lowest/10 border border-white/10 rounded-lg p-4 mb-6">
+<p class="text-center font-headline text-3xl font-black tracking-[0.5em] text-white">482-901</p>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 flex items-center justify-center gap-2 py-2 bg-white/10 text-white text-[11px] font-bold rounded-lg hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-sm">content_copy</span> Copy
+                            </button>
+<button class="flex-1 flex items-center justify-center gap-2 py-2 bg-white/10 text-white text-[11px] font-bold rounded-lg hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-sm">refresh</span> Regenerate
+                            </button>
+</div>
+</div>
+</section>
+<!-- Quick Actions Grid -->
+<section>
+<h4 class="font-headline text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-4">Quick Actions</h4>
+<div class="grid grid-cols-2 gap-3">
+<button class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/5 flex flex-col items-center gap-2 hover:bg-surface-container-high transition-all hover:scale-[1.02]">
+<span class="material-symbols-outlined text-tertiary">payments</span>
+<span class="text-[11px] font-bold text-on-surface">Pay Now</span>
+</button>
+<button class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/5 flex flex-col items-center gap-2 hover:bg-surface-container-high transition-all hover:scale-[1.02]">
+<span class="material-symbols-outlined text-on-surface-variant">list_alt</span>
+<span class="text-[11px] font-bold text-on-surface">View Requests</span>
+</button>
+<button class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/5 flex flex-col items-center gap-2 hover:bg-surface-container-high transition-all hover:scale-[1.02]">
+<span class="material-symbols-outlined text-on-surface-variant">calendar_month</span>
+<span class="text-[11px] font-bold text-on-surface">Repayment</span>
+</button>
+<button class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/5 flex flex-col items-center gap-2 hover:bg-surface-container-high transition-all hover:scale-[1.02]">
+<span class="material-symbols-outlined text-on-surface-variant">support_agent</span>
+<span class="text-[11px] font-bold text-on-surface">Contact</span>
+</button>
+</div>
+</section>
+<!-- Support Card -->
+<div class="bg-surface-container-highest/20 p-6 rounded-xl border border-outline-variant/10 text-center">
+<p class="text-sm text-on-surface mb-2 font-medium">Need immediate help?</p>
+<p class="text-xs text-on-surface-variant mb-4">Our premium concierge is available 24/7 for Enterprise Vault members.</p>
+<a class="text-tertiary font-bold flex items-center justify-center gap-2 hover:underline" href="tel:800123456">
+<span class="material-symbols-outlined text-sm">phone_in_talk</span> 800-BAREEQ-99
+                    </a>
+</div>
+</div>
+</div>
+</main>
+</body></html>

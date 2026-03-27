@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html dir="ltr" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Send Purchase Request | Bareeq Alysr</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-surface": "#213145",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "on-error": "#ffffff",
+                        "tertiary": "#000000",
+                        "on-tertiary-container": "#0c9488",
+                        "primary-container": "#131b2e",
+                        "outline": "#76777d",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-surface": "#0b1c30",
+                        "primary-fixed": "#dae2fd",
+                        "secondary-container": "#d5e3fc",
+                        "surface-tint": "#565e74",
+                        "inverse-primary": "#bec6e0",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#00201d",
+                        "on-primary-container": "#7c839b",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#005049",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container-low": "#eff4ff",
+                        "primary": "#000000",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "outline-variant": "#c6c6cd",
+                        "primary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed-dim": "#6bd8cb",
+                        "surface-variant": "#d3e4fe",
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#45464d",
+                        "on-secondary-container": "#57657a",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#00201d",
+                        "surface": "#f8f9ff",
+                        "surface-container": "#e5eeff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#89f5e7",
+                        "secondary": "#515f74",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "background": "#f8f9ff",
+                        "on-background": "#0b1c30",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container-high": "#dce9ff",
+                        "secondary-fixed": "#d5e3fc"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- SideNavBar (Shared Component) -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-slate-200/30 dark:border-slate-800/30 bg-slate-50 dark:bg-slate-950 flex flex-col py-8 px-4 gap-2 z-40 hidden md:flex">
+<div class="px-2 mb-8">
+<h1 class="font-black text-slate-900 dark:text-teal-400 text-xl tracking-tighter">Bareeq Alysr</h1>
+<p class="text-xs text-on-surface-variant font-medium">Enterprise Vault</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-manrope text-sm antialiased">Merchant Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-teal-500/10 text-teal-700 dark:text-teal-400 rounded-full font-semibold transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-manrope text-sm antialiased">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-manrope text-sm antialiased">Admin Console</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-manrope text-sm antialiased">Settlements</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-manrope text-sm antialiased">Audit Log</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-manrope text-sm antialiased">Support</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-slate-200/30 flex flex-col gap-2">
+<button class="mb-4 bg-primary text-on-primary py-2 px-4 rounded-xl text-xs font-bold hover:opacity-90 transition-opacity">
+                Switch to Merchant View
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-500 text-sm hover:text-slate-900" href="#">
+<span class="material-symbols-outlined text-lg">description</span>
+<span>Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-500 text-sm hover:text-slate-900" href="#">
+<span class="material-symbols-outlined text-lg">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 border-b border-slate-200/50 dark:border-slate-800/50 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md md:pl-64">
+<div class="flex justify-between items-center h-16 px-6 w-full">
+<div class="flex items-center gap-4">
+<span class="md:hidden font-black text-slate-900 text-lg tracking-tighter">Bareeq Alysr</span>
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="bg-slate-100/50 border-none rounded-full pl-9 pr-4 py-1.5 text-xs w-64 focus:ring-1 focus:ring-teal-500/50" placeholder="Search transactions..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center gap-6 mr-4">
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 font-manrope text-sm font-medium tracking-tight" href="#">Dashboard</a>
+<a class="text-teal-600 dark:text-teal-400 font-bold border-b-2 border-teal-500 font-manrope text-sm tracking-tight" href="#">Analytics</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 font-manrope text-sm font-medium tracking-tight" href="#">Reports</a>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-500 hover:bg-slate-100/50 rounded-full transition-colors"><span class="material-symbols-outlined">language</span></button>
+<button class="p-2 text-slate-500 hover:bg-slate-100/50 rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100/50 rounded-full transition-colors"><span class="material-symbols-outlined">settings</span></button>
+</div>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-slate-200 ml-2">
+<img class="w-full h-full object-cover" data-alt="Professional portrait of a financial executive in a minimalist studio setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-ZiJJOhMQ5b1yE4GTiVktBbA_f7agd1ohZwKoopROhc05WD7p1L5M50oPS34OEUG8D3YvWyI-KpYcx333JTlAnk1kGubulTy5ObP-USuM_IzA1AKvja-cUh5gnY-TAqhyazRO9id5GK7RidzYjZjamRAsEwdyJBp_vZz5-VxPxkpyqqFq2nfCfYf-_ycOJzAtuAQ9LoqtGBnlc6IIRHbFsrpQ_NORkjWJTZD5jhYsXKtyQhzvST4mpUfMEFklanMh9mNPCsND3qaG"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="md:pl-64 pt-16 min-h-screen">
+<div class="p-6 lg:p-12 max-w-5xl mx-auto">
+<!-- Breadcrumbs / Header -->
+<div class="mb-10">
+<nav class="flex items-center gap-2 text-xs font-medium text-on-surface-variant mb-4">
+<a class="hover:text-primary transition-colors" href="#">Transactions</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface">New Purchase Request</span>
+</nav>
+<h2 class="text-3xl font-extrabold tracking-tight text-on-surface">Send Purchase Request</h2>
+<p class="text-on-surface-variant mt-2 max-w-2xl">Initiate a secure buy-now-pay-later request for your customers. Funds are settled instantly upon customer approval.</p>
+</div>
+<!-- Bento Layout Content -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Main Form Column -->
+<div class="lg:col-span-8 space-y-6">
+<!-- Customer Lookup Card -->
+<section class="bg-surface-container-lowest rounded-xl p-8 relative overflow-hidden group">
+<!-- Success Stripe -->
+<div class="absolute inset-y-0 left-0 w-1 bg-tertiary-fixed"></div>
+<div class="flex items-start justify-between mb-6">
+<div>
+<h3 class="text-lg font-bold text-on-surface">1. Customer Identification</h3>
+<p class="text-sm text-on-surface-variant">Enter the unique identifier to fetch vault details.</p>
+</div>
+<span class="bg-surface-container-low text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Required</span>
+</div>
+<div class="space-y-4">
+<div class="max-w-md">
+<label class="block text-xs font-semibold text-on-surface-variant mb-2 uppercase tracking-wider">Customer Code</label>
+<div class="relative group/input">
+<input class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all font-mono" placeholder="e.g. BA-0000" type="text" value="BA-9921"/>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+<span class="material-symbols-outlined text-on-tertiary-container text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Validation State: Success -->
+<div class="bg-tertiary-container/5 rounded-xl p-4 flex items-center gap-4 animate-in fade-in slide-in-from-top-2 duration-500">
+<div class="h-12 w-12 rounded-full bg-tertiary-fixed/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container">person</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<h4 class="font-bold text-on-surface">Ahmed Al-Farsi</h4>
+<span class="text-[10px] font-bold text-on-tertiary-container bg-tertiary-fixed px-2 py-0.5 rounded">VERIFIED</span>
+</div>
+<div class="flex gap-4 mt-1">
+<p class="text-xs text-on-surface-variant">Available Limit: <span class="text-on-surface font-semibold">SAR 5,000.00</span></p>
+<p class="text-xs text-on-surface-variant">Risk Tier: <span class="text-on-surface font-semibold">A1 (Premium)</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Transaction Details Card -->
+<section class="bg-surface-container-lowest rounded-xl p-8 relative overflow-hidden">
+<div class="flex items-start justify-between mb-8">
+<div>
+<h3 class="text-lg font-bold text-on-surface">2. Transaction Particulars</h3>
+<p class="text-sm text-on-surface-variant">Define the value and scope of this purchase request.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="col-span-1">
+<label class="block text-xs font-semibold text-on-surface-variant mb-2 uppercase tracking-wider">Request Amount (SAR)</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-bold text-sm">SAR</span>
+<input class="w-full bg-surface-container-low border-none rounded-lg pl-14 pr-4 py-3 text-lg font-bold focus:ring-2 focus:ring-primary/20" placeholder="0.00" step="0.01" type="number"/>
+</div>
+</div>
+<div class="col-span-1">
+<label class="block text-xs font-semibold text-on-surface-variant mb-2 uppercase tracking-wider">Merchant Reference</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20" placeholder="INV-2024-001" type="text"/>
+</div>
+<div class="col-span-full">
+<label class="block text-xs font-semibold text-on-surface-variant mb-2 uppercase tracking-wider">Transaction Description</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 resize-none" placeholder="Provide details about the goods or services provided..." rows="3"></textarea>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<div class="flex items-center justify-between pt-4">
+<button class="text-on-surface-variant font-bold text-sm hover:text-on-surface transition-colors">Discard Request</button>
+<button class="bg-primary text-on-primary px-10 py-4 rounded-xl font-bold tracking-tight flex items-center gap-3 transition-transform active:scale-95 shadow-lg shadow-primary/10">
+<span>Send Purchase Request</span>
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+</div>
+<!-- Sidebar Info Column -->
+<div class="lg:col-span-4 space-y-6">
+<!-- Terms Card -->
+<div class="bg-primary-container text-on-primary-container rounded-xl p-6 relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-tertiary-fixed">info</span>
+<h4 class="text-sm font-bold text-white uppercase tracking-widest">Vault Logic</h4>
+</div>
+<div class="space-y-4">
+<div class="border-l-2 border-white/10 pl-4 py-1">
+<p class="text-xs text-white/80 font-medium">Interest-Free Period</p>
+<p class="text-sm font-bold text-white">Up to 90 Days</p>
+</div>
+<div class="border-l-2 border-white/10 pl-4 py-1">
+<p class="text-xs text-white/80 font-medium">Installment Logic</p>
+<p class="text-sm font-bold text-white">3 Monthly Equal Payments</p>
+</div>
+<div class="border-l-2 border-white/10 pl-4 py-1">
+<p class="text-xs text-white/80 font-medium">Settlement Speed</p>
+<p class="text-sm font-bold text-white">Instant (T+0)</p>
+</div>
+</div>
+</div>
+<!-- Geometric decorative pattern -->
+<div class="absolute bottom-[-20%] right-[-10%] opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'wght' 100;">shield</span>
+</div>
+</div>
+<!-- Visual Summary/Tip -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/15">
+<h4 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-4">Merchant Tip</h4>
+<div class="flex gap-4">
+<img class="w-16 h-16 rounded-lg object-cover" data-alt="Close-up of a high-end card reader in a minimalist modern retail environment with warm ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATKHkjO7-gU1f2e5D3_CHRZTJ6Zz4QelP_eqTSZYKZUBi-cQEu0p6X43YjuDXE-Rtpp--uUJOyqhfx_Z4jCU9zGoMpUhPDo8ZhHrHrbMNAuqfGgT-lkYzArBYZGCOEfdPAmALqGEjUbHuFUxafpieR3uQd0yXldJ8u7GM7vsDzNkSPsY1O6_dcdy6V8CkJYBLc3hhWEVxRdfbogyL3MnW9PHQ2R-iU3kIozo5fi11g1orJYFArneaLvPcxim57vzeSqMqdGRG0szBu"/>
+<div>
+<p class="text-sm text-on-surface font-semibold leading-tight mb-1">Clear Descriptions</p>
+<p class="text-xs text-on-surface-variant leading-relaxed">Detailed descriptions reduce the chance of customer disputes by 40%.</p>
+</div>
+</div>
+</div>
+<!-- Quick Support -->
+<div class="bg-tertiary-container text-on-tertiary-container rounded-xl p-6 flex items-center justify-between group cursor-pointer hover:bg-tertiary transition-colors">
+<div>
+<p class="text-xs font-bold uppercase tracking-widest opacity-70">Need Help?</p>
+<p class="text-sm font-bold">Contact Support</p>
+</div>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Success Feedback Overlay (Simulated) -->
+<!-- Removed 'hidden' class to show design but in a real app this would be triggered -->
+<div class="fixed inset-0 z-[60] flex items-center justify-center p-6 bg-primary-container/40 backdrop-blur-sm pointer-events-none opacity-0 group-active:opacity-100 transition-opacity">
+<div class="bg-surface-container-lowest rounded-2xl p-10 max-w-sm w-full shadow-2xl text-center transform scale-90">
+<div class="w-20 h-20 bg-tertiary-fixed/30 rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-on-tertiary-container text-4xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h3 class="text-2xl font-black text-on-surface mb-2">Request Sent Successfully</h3>
+<p class="text-on-surface-variant text-sm mb-8">Customer Ahmed Al-Farsi will receive an SMS and Push notification to approve the request.</p>
+<button class="w-full bg-primary text-on-primary py-3 rounded-xl font-bold">Return to Dashboard</button>
+</div>
+</div>
+</body></html>

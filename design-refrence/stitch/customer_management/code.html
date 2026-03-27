@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-container": "#131b2e",
+              "outline-variant": "#c6c6cd",
+              "primary-fixed": "#dae2fd",
+              "on-surface-variant": "#45464d",
+              "error": "#ba1a1a",
+              "secondary": "#515f74",
+              "inverse-primary": "#bec6e0",
+              "surface-tint": "#565e74",
+              "on-tertiary-container": "#0c9488",
+              "on-background": "#0b1c30",
+              "primary-fixed-dim": "#bec6e0",
+              "on-error-container": "#93000a",
+              "secondary-container": "#d5e3fc",
+              "on-primary-container": "#7c839b",
+              "on-secondary": "#ffffff",
+              "error-container": "#ffdad6",
+              "surface-variant": "#d3e4fe",
+              "primary": "#000000",
+              "on-primary-fixed": "#131b2e",
+              "on-tertiary": "#ffffff",
+              "surface-container-high": "#dce9ff",
+              "on-error": "#ffffff",
+              "background": "#f8f9ff",
+              "on-secondary-fixed-variant": "#3a485b",
+              "surface-dim": "#cbdbf5",
+              "surface-container-low": "#eff4ff",
+              "on-primary-fixed-variant": "#3f465c",
+              "on-tertiary-fixed": "#00201d",
+              "inverse-surface": "#213145",
+              "on-tertiary-fixed-variant": "#005049",
+              "tertiary-fixed": "#89f5e7",
+              "on-secondary-fixed": "#0d1c2e",
+              "on-primary": "#ffffff",
+              "tertiary-container": "#00201d",
+              "surface-bright": "#f8f9ff",
+              "outline": "#76777d",
+              "tertiary": "#000000",
+              "on-surface": "#0b1c30",
+              "on-secondary-container": "#57657a",
+              "surface-container-lowest": "#ffffff",
+              "surface": "#f8f9ff",
+              "secondary-fixed-dim": "#b9c7df",
+              "tertiary-fixed-dim": "#6bd8cb",
+              "surface-container": "#e5eeff",
+              "inverse-on-surface": "#eaf1ff",
+              "surface-container-highest": "#d3e4fe",
+              "secondary-fixed": "#d5e3fc"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-slate-200/30 bg-slate-50 flex flex-col py-8 px-4 gap-2 z-50">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center text-tertiary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+<div>
+<h1 class="font-headline font-black text-slate-900 leading-none">Bareeq Alysr</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mt-1">Enterprise Vault</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-manrope">Merchant Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-teal-500/10 text-teal-700 rounded-full font-semibold transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="text-sm font-manrope">Admin Console</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-sm font-manrope">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-sm font-manrope">Settlements</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="text-sm font-manrope">Audit Log</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="text-sm font-manrope">Support</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-slate-200/50">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-manrope">Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-error hover:bg-error-container/20 rounded-full transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-manrope">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen p-8 bg-surface">
+<!-- Header Section -->
+<header class="flex justify-between items-end mb-10">
+<div>
+<h2 class="text-3xl font-headline font-extrabold text-on-background tracking-tight">Customer Management</h2>
+<p class="text-on-surface-variant text-sm mt-1">Review, monitor, and adjust enterprise-level credit parameters.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-5 py-2.5 bg-surface-container text-on-surface font-semibold rounded-xl text-sm transition-transform active:scale-95">
+                    Export CSV
+                </button>
+<button class="px-5 py-2.5 bg-primary-container text-white font-semibold rounded-xl text-sm flex items-center gap-2 transition-transform active:scale-95 shadow-lg shadow-primary-container/20">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+                    Add Customer
+                </button>
+</div>
+</header>
+<!-- KPI Grid (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary-fixed"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Total Active Customers</span>
+<span class="material-symbols-outlined text-tertiary-fixed-dim">groups</span>
+</div>
+<div class="text-3xl font-headline font-bold text-on-background">12,842</div>
+<div class="mt-2 flex items-center gap-1 text-[11px] font-bold text-on-tertiary-container">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                    +14.2% from last month
+                </div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-container"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Total Credit Exposure</span>
+<span class="material-symbols-outlined text-primary-container/40">account_balance</span>
+</div>
+<div class="text-3xl font-headline font-bold text-on-background">4.2M <span class="text-sm font-body font-medium text-on-surface-variant">SAR</span></div>
+<div class="mt-2 flex items-center gap-1 text-[11px] font-bold text-on-surface-variant">
+                    Utilization: 64.2%
+                </div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">High Risk Accounts</span>
+<span class="material-symbols-outlined text-error/40">warning</span>
+</div>
+<div class="text-3xl font-headline font-bold text-on-background">142</div>
+<div class="mt-2 flex items-center gap-1 text-[11px] font-bold text-error">
+                    Requires immediate audit
+                </div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-wider">Pending Verification</span>
+<span class="material-symbols-outlined text-secondary/40">verified_user</span>
+</div>
+<div class="text-3xl font-headline font-bold text-on-background">89</div>
+<div class="mt-2 flex items-center gap-1 text-[11px] font-bold text-on-secondary-fixed-variant">
+                    Tier 2 applications pending
+                </div>
+</div>
+</div>
+<!-- Filter Bar -->
+<div class="flex flex-wrap items-center gap-4 mb-6 p-2 bg-surface-container-low rounded-xl">
+<div class="relative flex-1 min-w-[300px]">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-12 pr-4 py-2.5 bg-surface-container-lowest border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-outline" placeholder="Search by name, ID, or phone..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<select class="bg-surface-container-lowest border-none rounded-lg text-sm py-2.5 pl-4 pr-10 focus:ring-2 focus:ring-primary/20 cursor-pointer">
+<option>All Verification Tiers</option>
+<option>Tier 1 (Basic)</option>
+<option>Tier 2 (Identity)</option>
+<option>Tier 3 (Full KYC)</option>
+</select>
+<select class="bg-surface-container-lowest border-none rounded-lg text-sm py-2.5 pl-4 pr-10 focus:ring-2 focus:ring-primary/20 cursor-pointer">
+<option>All Risk Levels</option>
+<option>Low Risk</option>
+<option>Moderate</option>
+<option>High Risk</option>
+</select>
+<button class="p-2.5 bg-surface-container-lowest rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Customer Table -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-none">
+<th class="px-6 py-4 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant font-headline">Customer Detail</th>
+<th class="px-6 py-4 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant font-headline">Verification</th>
+<th class="px-6 py-4 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant font-headline text-right">Credit Limit</th>
+<th class="px-6 py-4 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant font-headline text-right">Current Balance</th>
+<th class="px-6 py-4 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant font-headline">Risk Level</th>
+<th class="px-6 py-4 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant font-headline text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50">
+<!-- Row 1 -->
+<tr class="hover:bg-surface transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-primary-container font-bold text-xs">AA</div>
+<div>
+<p class="font-bold text-sm text-on-background">Ahmed Al-Sudairy</p>
+<p class="text-[11px] text-on-surface-variant">ID: 1029384756</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-full bg-tertiary-container text-on-tertiary-container text-[10px] font-black uppercase tracking-wider">Tier 3</span>
+<span class="material-symbols-outlined text-[16px] text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right font-headline font-bold text-on-background text-sm">
+                            25,000.00 <span class="text-[10px] text-on-surface-variant font-medium">SAR</span>
+</td>
+<td class="px-6 py-5 text-right font-headline font-bold text-on-background text-sm">
+                            12,450.00 <span class="text-[10px] text-on-surface-variant font-medium">SAR</span>
+</td>
+<td class="px-6 py-5">
+<span class="flex items-center gap-1 text-[11px] font-bold text-on-tertiary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                                Low
+                            </span>
+</td>
+<td class="px-6 py-5 text-center">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-low/30 hover:bg-surface transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover grayscale" data-alt="portrait of middle aged professional man in business casual attire soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvV3gfEbksnWk__rufJTqqUkBRrDU4lUrft_VWa_6_8vI3t5iNDcbWAtrFkwDFmD2L5MsKKpNNNm5tylCCUF7Rc70g1GsHXKUUqLZMWCDrLpj4PdlaSZtSmMAKMyAX0j77XH1Arb2fOnNZDJOKFFb4oOrihZk1iF4pqXbgNnOxnt8lAgzugtnoKheu_p36OmNDtc_M4PMTAIilj57CI7IW8tgalUdhEBQWJwykaOkczdEB8RP92SDCi0zvtbk3hy1JdlkUqo-9G1nd"/>
+<div>
+<p class="font-bold text-sm text-on-background">Fahad Mansour</p>
+<p class="text-[11px] text-on-surface-variant">ID: 1099223344</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-highest text-on-primary-container text-[10px] font-black uppercase tracking-wider">Tier 2</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right font-headline font-bold text-on-background text-sm">
+                            10,000.00 <span class="text-[10px] text-on-surface-variant font-medium">SAR</span>
+</td>
+<td class="px-6 py-5 text-right font-headline font-bold text-error text-sm">
+                            9,800.00 <span class="text-[10px] text-error font-medium">SAR</span>
+</td>
+<td class="px-6 py-5">
+<span class="flex items-center gap-1 text-[11px] font-bold text-error">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                High
+                            </span>
+</td>
+<td class="px-6 py-5 text-center">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-secondary-container font-bold text-xs">LH</div>
+<div>
+<p class="font-bold text-sm text-on-background">Layan Hamad</p>
+<p class="text-[11px] text-on-surface-variant">ID: 1055667788</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-full bg-tertiary-container text-on-tertiary-container text-[10px] font-black uppercase tracking-wider">Tier 3</span>
+<span class="material-symbols-outlined text-[16px] text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right font-headline font-bold text-on-background text-sm">
+                            50,000.00 <span class="text-[10px] text-on-surface-variant font-medium">SAR</span>
+</td>
+<td class="px-6 py-5 text-right font-headline font-bold text-on-background text-sm">
+                            2,100.00 <span class="text-[10px] text-on-surface-variant font-medium">SAR</span>
+</td>
+<td class="px-6 py-5">
+<span class="flex items-center gap-1 text-[11px] font-bold text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant"></span>
+                                Moderate
+                            </span>
+</td>
+<td class="px-6 py-5 text-center">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-container-low/30 hover:bg-surface transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover grayscale" data-alt="professional portrait of young woman with thoughtful expression in bright modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdGMRx-bST8sx8ZT9ArSK2Ie8NqKDdr7sEyB-nO_Tq5q45mISE3ZR1BzMiBGt8jNntLLVSzUzhJICUoIj16ieNZMkMNpEBFsLA8I7OMWy2sjrmq11LIWbmh2v_FsfM3wTVZ0lVSOdwuvpNxNDzqhM-5A89jtGfVbZSK0zh52AgNwuqV7c22uUfsaWUdALsIeng7Sxi--3AAIbMSzyXOKOHmKXayHOADvt0M7w8bo6uikx3V4MZ0di6Bs-QDI3aV3MP20OwkcJ3bp1N"/>
+<div>
+<p class="font-bold text-sm text-on-background">Sara Khalid</p>
+<p class="text-[11px] text-on-surface-variant">ID: 1077889900</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-full bg-error-container text-on-error-container text-[10px] font-black uppercase tracking-wider">Pending</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right font-headline font-bold text-on-background text-sm">
+                            5,000.00 <span class="text-[10px] text-on-surface-variant font-medium">SAR</span>
+</td>
+<td class="px-6 py-5 text-right font-headline font-bold text-on-background text-sm">
+                            0.00 <span class="text-[10px] text-on-surface-variant font-medium">SAR</span>
+</td>
+<td class="px-6 py-5">
+<span class="flex items-center gap-1 text-[11px] font-bold text-on-tertiary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                                Low
+                            </span>
+</td>
+<td class="px-6 py-5 text-center">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">more_horiz</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="px-6 py-4 flex items-center justify-between border-t border-slate-50 bg-surface-container-low/20">
+<span class="text-xs text-on-surface-variant font-medium">Showing 1 to 4 of 12,842 customers</span>
+<div class="flex gap-1">
+<button class="px-3 py-1.5 bg-surface-container-lowest border-none rounded-lg text-xs font-bold text-on-surface disabled:opacity-50">Previous</button>
+<button class="px-3 py-1.5 bg-primary-container text-white border-none rounded-lg text-xs font-bold">1</button>
+<button class="px-3 py-1.5 bg-surface-container-lowest border-none rounded-lg text-xs font-bold text-on-surface">2</button>
+<button class="px-3 py-1.5 bg-surface-container-lowest border-none rounded-lg text-xs font-bold text-on-surface">3</button>
+<span class="px-2 py-1.5 text-xs text-outline font-bold">...</span>
+<button class="px-3 py-1.5 bg-surface-container-lowest border-none rounded-lg text-xs font-bold text-on-surface">3211</button>
+<button class="px-3 py-1.5 bg-surface-container-lowest border-none rounded-lg text-xs font-bold text-on-surface">Next</button>
+</div>
+</div>
+</div>
+<!-- System Status Footer -->
+<footer class="mt-12 flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-outline">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                    Gateway Online
+                </div>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                    KYC Engine Active
+                </div>
+</div>
+<div>
+                Bareeq Alysr Enterprise Vault v2.4.0-Stable
+            </div>
+</footer>
+</main>
+</body></html>
