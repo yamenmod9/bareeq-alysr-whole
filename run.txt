@@ -1,1 +1,26 @@
-flutter run -d web-server --web-port 7357
+╔══════════════════════════════════════════════════════════════════╗
+║           🚀 BAREEQ AL-YUSR - COMPLETE SETUP GUIDE 🚀           ║
+╚══════════════════════════════════════════════════════════════════╝
+
+📦 STEP 1: INSTALL DEPENDENCIES (First Time Only)
+    ➜ Double-click: INSTALL_ALL.bat
+    ⏱️  Takes: 5-10 minutes
+
+🖥️  STEP 2: START BACKEND SERVER
+    ➜ Double-click: START_EVERYTHING.bat
+    ⚠️  Keep this window open!
+
+📱 STEP 3: START FLUTTER APP
+    ➜ Double-click: start-flutter.bat
+    OR: flutter run
+
+✅ STEP 4: TEST INSTALLMENT FEATURE
+    • Login → Merchant sends request (600 SAR)
+    • Customer accepts with "6 months" plan
+    • Check Transactions tab → Should show "6 months" ✅
+
+🔧 TROUBLESHOOTING
+    Connection Error: Check backend at http://localhost:8000/health
+    Build Error: Run INSTALL_ALL.bat again
+    
+📄 Full Guide: See QUICK_START.txt and LOCAL_SETUP_README.md

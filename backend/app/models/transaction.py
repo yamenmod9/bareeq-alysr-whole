@@ -101,7 +101,7 @@ class Transaction(db.Model):
     
     def to_dict(self):
         """Convert to dictionary"""
-        return {
+        data = {
             "id": self.id,
             "transaction_number": self.transaction_number,
             "merchant_id": self.merchant_id,
@@ -120,6 +120,16 @@ class Transaction(db.Model):
             "completed_at": self.completed_at.isoformat() if self.completed_at else None,
             "is_overdue": self.is_overdue
         }
+        
+        # Add installment_months from repayment plan if it exists
+        if self.repayment_plan_id and hasattr(self, 'repayment_plan_ref') and self.repayment_plan_ref:
+            data['installment_months'] = self.repayment_plan_ref.plan_type
+            data['plan_months'] = self.repayment_plan_ref.plan_type  # alias for compatibility
+        else:
+            data['installment_months'] = 0  # Pay in full
+            data['plan_months'] = 0
+        
+        return data
     
     def __repr__(self):
         return f"<Transaction {self.transaction_number} - {self.status}>"

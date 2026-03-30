@@ -1,0 +1,141 @@
+╔════════════════════════════════════════════════════════════╗
+║          MANUAL STEPS - If Batch Files Don't Work         ║
+╚════════════════════════════════════════════════════════════╝
+
+If the batch files are hanging or failing, follow these manual steps:
+
+═══════════════════════════════════════════════════════════
+STEP 1: Open Command Prompt
+═══════════════════════════════════════════════════════════
+
+1. Press Windows Key + R
+2. Type: cmd
+3. Press Enter
+
+═══════════════════════════════════════════════════════════
+STEP 2: Navigate to Project Folder
+═══════════════════════════════════════════════════════════
+
+Type this EXACTLY:
+
+cd d:\Programming\bareeq-alysr-whole
+
+Press Enter
+
+═══════════════════════════════════════════════════════════
+STEP 3: Check Device is Connected
+═══════════════════════════════════════════════════════════
+
+Type:
+
+flutter devices
+
+Press Enter
+
+YOU SHOULD SEE:
+- Your phone listed (like "SM-G973F" or similar)
+- If you DON'T see it:
+  → Enable USB Debugging on phone
+  → Try different USB cable
+  → Accept "Allow USB debugging" popup on phone
+
+═══════════════════════════════════════════════════════════
+STEP 4: Run the App (Quick Method)
+═══════════════════════════════════════════════════════════
+
+Type:
+
+flutter run
+
+Press Enter
+
+WAIT: First build takes 5-10 minutes
+      Be patient, don't close the window!
+
+═══════════════════════════════════════════════════════════
+ALTERNATIVE: Clean Build (If Quick Method Fails)
+═══════════════════════════════════════════════════════════
+
+If flutter run doesn't work, do a clean build:
+
+Step 1: Clean
+flutter clean
+
+Step 2: Get dependencies
+flutter pub get
+
+Step 3: Run
+flutter run
+
+═══════════════════════════════════════════════════════════
+WHAT TO EXPECT
+═══════════════════════════════════════════════════════════
+
+You'll see:
+1. "Resolving dependencies..." (1-2 min)
+2. "Running Gradle task 'assembleDebug'..." (3-5 min)
+3. "Installing..." (30 sec)
+4. "Launching..." (30 sec)
+5. App opens on your phone!
+
+═══════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════
+
+❌ "No devices found"
+   → Phone not connected or USB debugging disabled
+   → Try: flutter devices
+
+❌ "Gradle build failed"
+   → Try: flutter clean && flutter pub get && flutter run
+
+❌ "Network error" in app
+   → Backend not running: Run START_EVERYTHING.bat
+   → Wrong WiFi: Phone must be on same network as computer
+   → Firewall blocking: Allow Python through Windows Firewall
+
+❌ Command prompt closes immediately
+   → Don't double-click .bat files that are failing
+   → Use manual steps above instead
+
+═══════════════════════════════════════════════════════════
+VERIFY CONNECTION
+═══════════════════════════════════════════════════════════
+
+1. Backend running? 
+   Check: http://localhost:8000/health in browser
+   Should see: {"status": "healthy"}
+
+2. Phone on same WiFi?
+   Phone: Settings → WiFi → Network name
+   Should be same as computer's WiFi
+
+3. Firewall allowing Python?
+   Windows → Firewall → Allow an app
+   Find Python → Check "Private" network
+
+═══════════════════════════════════════════════════════════
+CONFIGURATION
+═══════════════════════════════════════════════════════════
+
+File: lib\core\config\app_config.dart
+Current: http://192.168.1.7:8000
+
+This is YOUR COMPUTER'S IP ADDRESS from the backend output:
+ * Running on http://192.168.1.7:8000
+
+If your IP changed, update line 5 in app_config.dart
+
+═══════════════════════════════════════════════════════════
+QUICK COMMANDS REFERENCE
+═══════════════════════════════════════════════════════════
+
+Check devices:        flutter devices
+Quick run:            flutter run
+Clean build:          flutter clean && flutter pub get && flutter run
+Check Flutter:        flutter doctor
+Hot reload:           Press 'r' in terminal (while app running)
+Hot restart:          Press 'R' in terminal (while app running)
+Quit app:             Press 'q' in terminal
+
+═══════════════════════════════════════════════════════════

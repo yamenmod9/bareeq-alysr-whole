@@ -727,39 +727,90 @@ def customer_upcoming_payments(user):
 @require_role('customer')
 def customer_repayment_plans(user):
     """Get customer repayment plans"""
-    from app.models import Customer, Transaction, Payment
+    from app.models import Customer, Transaction, RepaymentPlan, Merchant, User
     
     customer = Customer.query.filter_by(user_id=user.id).first()
     if not customer:
         return jsonify({"success": False, "message": "Customer not found"}), 404
     
-    # Get active transactions with their payment schedules
+    # Get active transactions with their repayment plans
     transactions = Transaction.query.filter_by(
         customer_id=customer.id,
         status='active'
-    ).limit(20).all()
+    ).options(
+        db.joinedload(Transaction.repayment_plan_ref)
+    ).order_by(Transaction.created_at.desc()).limit(20).all()
     
     result = []
     for t in transactions:
-        payments = Payment.query.filter_by(transaction_id=t.id).order_by(Payment.payment_date.asc()).all()
+        # Get merchant info
+        merchant = Merchant.query.get(t.merchant_id)
+        merchant_name = "Unknown Merchant"
+        if merchant and merchant.user:
+            merchant_name = merchant.user.full_name or merchant.shop_name
         
-        payment_schedule = []
-        for p in payments:
-            payment_schedule.append({
-                "id": p.id,
-                "amount": float(p.amount),
-                "due_date": p.payment_date.isoformat() if p.payment_date else None,
-                "status": p.status
+        # Build basic transaction data
+        txn_data = {
+            "id": t.id,
+            "transaction_id": t.id,
+            "transaction_number": t.transaction_number,
+            "merchant_name": merchant_name,
+            "total_amount": float(t.total_amount),
+            "paid_amount": float(t.paid_amount),
+            "remaining_amount": float(t.remaining_amount),
+            "remaining_balance": float(t.remaining_amount),  # alias for compatibility
+            "status": t.status,
+            "created_at": t.created_at.isoformat() if t.created_at else None,
+            "start_date": t.created_at.isoformat() if t.created_at else None,
+        }
+        
+        # Add installment plan information if it exists
+        if t.repayment_plan_id and t.repayment_plan_ref:
+            plan = t.repayment_plan_ref
+            
+            # Get the full schedule
+            schedules = plan.schedules.order_by('installment_number').all() if hasattr(plan, 'schedules') else []
+            payment_schedule = []
+            
+            for schedule in schedules:
+                payment_schedule.append({
+                    "id": schedule.id,
+                    "installment_number": schedule.installment_number,
+                    "amount": float(schedule.amount),
+                    "due_date": schedule.due_date.isoformat() if schedule.due_date else None,
+                    "status": schedule.status,
+                    "paid_amount": float(schedule.paid_amount) if schedule.paid_amount else 0.0,
+                    "paid_date": schedule.paid_date.isoformat() if schedule.paid_date else None,
+                    "is_overdue": schedule.is_overdue
+                })
+            
+            # Add plan data to transaction
+            txn_data.update({
+                "installment_months": plan.plan_type,
+                "plan_months": plan.plan_type,
+                "total_months": plan.plan_type,
+                "plan_type": plan.plan_type,
+                "monthly_payment": float(plan.installment_amount),
+                "installment_amount": float(plan.installment_amount),
+                "paid_installments": plan.paid_installments or 0,
+                "payment_schedule": payment_schedule,
+                "next_payment_date": plan.next_payment_date.isoformat() if plan.next_payment_date else None,
+                "next_payment_amount": float(plan.next_payment_amount) if plan.next_payment_amount else None,
+            })
+        else:
+            # No installment plan - pay in full
+            txn_data.update({
+                "installment_months": 0,
+                "plan_months": 0,
+                "total_months": 1,
+                "plan_type": 0,
+                "monthly_payment": float(t.remaining_amount),
+                "installment_amount": float(t.remaining_amount),
+                "paid_installments": 0,
+                "payment_schedule": [],
             })
         
-        result.append({
-            "transaction_id": t.id,
-            "total_amount": float(t.total_amount),
-            "remaining_balance": float(t.remaining_amount),
-            "status": t.status,
-            "payment_schedule": payment_schedule,
-            "created_at": t.created_at.isoformat() if t.created_at else None
-        })
+        result.append(txn_data)
     
     return jsonify({
         "success": True,
@@ -772,7 +823,7 @@ def customer_repayment_plans(user):
 @require_role('customer')
 def customer_transactions_filtered(user):
     """Get customer transactions with filtering"""
-    from app.models import Customer, Transaction
+    from app.models import Customer, Transaction, Merchant
     
     customer = Customer.query.filter_by(user_id=user.id).first()
     if not customer:
@@ -783,8 +834,10 @@ def customer_transactions_filtered(user):
     page = int(request.args.get('page', 1))
     page_size = min(int(request.args.get('page_size', 10)), 100)
     
-    # Build query
-    query = Transaction.query.filter_by(customer_id=customer.id)
+    # Build query with eager loading of repayment plan
+    query = Transaction.query.filter_by(customer_id=customer.id).options(
+        db.joinedload(Transaction.repayment_plan_ref)
+    )
     
     if status and status != 'all':
         query = query.filter(Transaction.status == status)
@@ -796,14 +849,21 @@ def customer_transactions_filtered(user):
     
     result = []
     for t in transactions:
-        result.append({
-            "id": t.id,
-            "merchant_name": "Sample Merchant",
-            "amount": float(t.total_amount),
-            "status": t.status,
-            "due_date": t.due_date.isoformat() if t.due_date else None,
-            "created_at": t.created_at.isoformat() if t.created_at else None
-        })
+        # Get merchant name
+        merchant = Merchant.query.get(t.merchant_id)
+        merchant_name = merchant.user.full_name if merchant and merchant.user else "Unknown Merchant"
+        
+        # Start with to_dict() to get all transaction data including installment_months
+        txn_data = t.to_dict()
+        
+        # Add merchant name
+        txn_data['merchant_name'] = merchant_name
+        
+        # Add amount/remaining_amount aliases for frontend compatibility
+        txn_data['amount'] = txn_data.get('total_amount', 0)
+        txn_data['remaining_amount'] = txn_data.get('remaining_amount', 0)
+        
+        result.append(txn_data)
     
     return jsonify({
         "success": True,
@@ -977,8 +1037,10 @@ def merchant_transactions_paginated(user):
     page = int(request.args.get('page', 1))
     page_size = min(int(request.args.get('page_size', 10)), 100)
     
-    # Get transactions with pagination
-    transactions = Transaction.query.filter_by(merchant_id=merchant.id).order_by(
+    # Get transactions with pagination, eager load repayment plans
+    transactions = Transaction.query.filter_by(merchant_id=merchant.id).options(
+        db.joinedload(Transaction.repayment_plan_ref)
+    ).order_by(
         Transaction.created_at.desc()
     ).offset((page - 1) * page_size).limit(page_size).all()
     
@@ -987,14 +1049,16 @@ def merchant_transactions_paginated(user):
         customer = db.session.get(Customer, t.customer_id)
         customer_user = db.session.get(User, customer.user_id) if customer else None
         
-        result.append({
-            "id": t.id,
-            "customer_name": customer_user.full_name if customer_user else "Unknown",
-            "amount": float(t.total_amount),
-            "status": t.status,
-            "due_date": t.due_date.isoformat() if t.due_date else None,
-            "created_at": t.created_at.isoformat() if t.created_at else None
-        })
+        # Start with to_dict() to get all transaction data including installment_months
+        txn_data = t.to_dict()
+        
+        # Add customer name
+        txn_data['customer_name'] = customer_user.full_name if customer_user else "Unknown"
+        
+        # Add amount alias for compatibility
+        txn_data['amount'] = txn_data.get('total_amount', 0)
+        
+        result.append(txn_data)
     
     return jsonify({
         "success": True,
@@ -1388,7 +1452,7 @@ def get_pending_requests(user):
 @require_role('customer')
 def accept_purchase_request(user, request_id):
     """Accept a purchase request"""
-    from app.models import Customer, PurchaseRequest, Transaction, Settlement
+    from app.models import Customer, PurchaseRequest, Transaction, Settlement, RepaymentPlan
     from datetime import datetime
     import uuid
     
@@ -1408,6 +1472,15 @@ def accept_purchase_request(user, request_id):
     
     if pr.total_amount > customer.available_balance:
         return jsonify({"success": False, "message": "Insufficient balance"}), 400
+    
+    # Get installment months from request body (default to 0 = pay in full)
+    data = request.get_json() or {}
+    installment_months = data.get('installment_months', 0)
+    
+    # Validate installment months
+    valid_plans = [0, 3, 6, 9, 12, 18, 24]
+    if installment_months not in valid_plans:
+        return jsonify({"success": False, "message": f"Invalid installment plan. Choose from: {valid_plans}"}), 400
     
     # Update purchase request
     pr.status = 'accepted'
@@ -1429,6 +1502,31 @@ def accept_purchase_request(user, request_id):
     db.session.add(transaction)
     db.session.flush()
     
+    # Create repayment plan if installment_months > 0
+    repayment_plan = None
+    if installment_months > 0:
+        installment_amount = round(pr.total_amount / installment_months, 2)
+        repayment_plan = RepaymentPlan(
+            transaction_id=transaction.id,
+            customer_id=customer.id,
+            plan_type=installment_months,
+            total_amount=pr.total_amount,
+            installment_amount=installment_amount,
+            number_of_installments=installment_months,
+            remaining_amount=pr.total_amount,
+            status='active'
+        )
+        db.session.add(repayment_plan)
+        db.session.flush()
+        
+        # Link repayment plan to transaction
+        transaction.repayment_plan_id = repayment_plan.id
+        
+        # Generate payment schedule
+        schedules = repayment_plan.generate_schedule()
+        for schedule in schedules:
+            db.session.add(schedule)
+    
     # Create settlement for merchant
     commission = pr.total_amount * Config.PLATFORM_COMMISSION_RATE
     settlement = Settlement(
@@ -1443,14 +1541,21 @@ def accept_purchase_request(user, request_id):
     
     db.session.commit()
     
+    response_data = {
+        "transaction_id": transaction.id,
+        "transaction_number": transaction.transaction_number,
+        "amount": float(transaction.total_amount),
+        "new_balance": float(customer.available_balance),
+        "installment_months": installment_months
+    }
+    
+    if repayment_plan:
+        response_data["repayment_plan_id"] = repayment_plan.id
+        response_data["monthly_payment"] = float(repayment_plan.installment_amount)
+    
     return jsonify({
         "success": True,
-        "data": {
-            "transaction_id": transaction.id,
-            "transaction_number": transaction.transaction_number,
-            "amount": float(transaction.total_amount),
-            "new_balance": float(customer.available_balance)
-        },
+        "data": response_data,
         "message": "Purchase request accepted"
     })
 

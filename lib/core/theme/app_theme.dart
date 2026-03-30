@@ -65,33 +65,42 @@ class AppTheme {
   static ThemeData light() {
     final textTheme = _textTheme(Brightness.light);
     final scheme = const ColorScheme.light().copyWith(
-      primary: Color(0xFF000000),
+      // Primary - Deep Blue/Black for main actions
+      primary: Color(0xFF1A237E),  // Deep indigo blue
       onPrimary: Color(0xFFFFFFFF),
-      primaryContainer: Color(0xFF131B2E),
-      onPrimaryContainer: Color(0xFFC0CAE0),
-      secondary: Color(0xFF37465B),
+      primaryContainer: Color(0xFFE8EAF6),  // Light indigo container
+      onPrimaryContainer: Color(0xFF000051),
+      
+      // Secondary - Professional gray-blue
+      secondary: Color(0xFF455A64),  // Blue gray
       onSecondary: Color(0xFFFFFFFF),
-      secondaryContainer: Color(0xFFD5E3FC),
-      onSecondaryContainer: Color(0xFF2F3C4E),
-      tertiary: Color(0xFF0C9488),
+      secondaryContainer: Color(0xFFCFD8DC),  // Light blue gray
+      onSecondaryContainer: Color(0xFF263238),
+      
+      // Tertiary - Fresh teal/green for success states
+      tertiary: Color(0xFF00897B),  // Teal
       onTertiary: Color(0xFFFFFFFF),
-      tertiaryContainer: Color(0xFF00201D),
-      onTertiaryContainer: Color(0xFF89F5E7),
-      error: Color(0xFFBA1A1A),
+      tertiaryContainer: Color(0xFFB2DFDB),  // Light teal
+      onTertiaryContainer: Color(0xFF004D40),
+      
+      // Error - Clear red for errors
+      error: Color(0xFFD32F2F),
       onError: Color(0xFFFFFFFF),
-      errorContainer: Color(0xFFFFDAD6),
-      onErrorContainer: Color(0xFF93000A),
-      surface: Color(0xFFF8F9FF),
-      onSurface: Color(0xFF0B1C30),
-      surfaceContainerLowest: Color(0xFFFFFFFF),
-      surfaceContainerLow: Color(0xFFF1F5FF),
-      surfaceContainer: Color(0xFFE8F0FF),
-      surfaceContainerHigh: Color(0xFFDDE9FF),
-      surfaceContainerHighest: Color(0xFFD2E2FC),
-      surfaceDim: Color(0xFFC8D8F2),
-      onSurfaceVariant: Color(0xFF344257),
-      outline: Color(0xFF76777D),
-      outlineVariant: Color(0xFFB6C2D6),
+      errorContainer: Color(0xFFFFCDD2),
+      onErrorContainer: Color(0xFFB71C1C),
+      
+      // Surface - Clean white/gray backgrounds
+      surface: Color(0xFFFAFAFA),  // Very light gray
+      onSurface: Color(0xFF212121),  // Near black for text
+      surfaceContainerLowest: Color(0xFFFFFFFF),  // Pure white
+      surfaceContainerLow: Color(0xFFF5F5F5),  // Light gray
+      surfaceContainer: Color(0xFFEEEEEE),  // Medium light gray
+      surfaceContainerHigh: Color(0xFFE0E0E0),  // Medium gray
+      surfaceContainerHighest: Color(0xFFD6D6D6),  // Darker gray
+      surfaceDim: Color(0xFFBDBDBD),
+      onSurfaceVariant: Color(0xFF616161),  // Medium dark gray
+      outline: Color(0xFF9E9E9E),  // Gray for borders
+      outlineVariant: Color(0xFFE0E0E0),  // Light gray for subtle borders
     );
 
     return ThemeData(
@@ -101,10 +110,10 @@ class AppTheme {
       scaffoldBackgroundColor: scheme.surface,
       pageTransitionsTheme: _pageTransitions,
       appBarTheme: AppBarTheme(
-        backgroundColor: scheme.surfaceContainerLowest.withValues(alpha: 0.96),
+        backgroundColor: scheme.surfaceContainerLowest,
         elevation: 0,
-        scrolledUnderElevation: 0,
-        surfaceTintColor: Colors.transparent,
+        scrolledUnderElevation: 1,
+        surfaceTintColor: scheme.primary.withValues(alpha: 0.05),
         foregroundColor: scheme.onSurface,
         titleTextStyle: textTheme.titleMedium?.copyWith(
           color: scheme.onSurface,
@@ -112,42 +121,48 @@ class AppTheme {
         ),
       ),
       cardTheme: CardThemeData(
-        elevation: 0,
+        elevation: 1,
         color: scheme.surfaceContainerLowest,
-        shadowColor: const Color(0x0F0B1C30),
+        shadowColor: scheme.shadow.withValues(alpha: 0.08),
         margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(color: scheme.outlineVariant.withValues(alpha: 0.3)),
+        ),
       ),
       chipTheme: ChipThemeData(
         backgroundColor: scheme.surfaceContainerLow,
-        selectedColor: scheme.secondaryContainer,
+        selectedColor: scheme.primaryContainer,
         secondarySelectedColor: scheme.tertiaryContainer,
         side: BorderSide.none,
         labelStyle: textTheme.labelMedium?.copyWith(color: scheme.onSurface),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       ),
       navigationRailTheme: NavigationRailThemeData(
         backgroundColor: Colors.transparent,
-        selectedIconTheme: IconThemeData(color: scheme.tertiary),
+        selectedIconTheme: IconThemeData(color: scheme.primary, size: 24),
         selectedLabelTextStyle: textTheme.labelLarge?.copyWith(
-          color: scheme.tertiary,
+          color: scheme.primary,
+          fontWeight: FontWeight.w600,
         ),
-        unselectedIconTheme: IconThemeData(color: scheme.onSurfaceVariant),
+        unselectedIconTheme: IconThemeData(color: scheme.onSurfaceVariant, size: 24),
         unselectedLabelTextStyle: textTheme.labelMedium?.copyWith(
           color: scheme.onSurfaceVariant,
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: scheme.surfaceContainerLowest.withValues(alpha: 0.82),
-        indicatorColor: scheme.surfaceContainerHighest,
+        backgroundColor: scheme.surfaceContainerLowest,
+        indicatorColor: scheme.primaryContainer,
         labelTextStyle: WidgetStatePropertyAll(textTheme.labelSmall),
+        elevation: 3,
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: scheme.surfaceContainerLow,
+        fillColor: scheme.surfaceContainerLowest,
         floatingLabelStyle: textTheme.labelMedium?.copyWith(
-          color: scheme.onSurface,
+          color: scheme.primary,
+          fontWeight: FontWeight.w600,
         ),
         labelStyle: textTheme.labelMedium?.copyWith(
           color: scheme.onSurfaceVariant,
@@ -155,77 +170,99 @@ class AppTheme {
         prefixStyle: textTheme.bodyMedium?.copyWith(color: scheme.onSurface),
         suffixStyle: textTheme.bodyMedium?.copyWith(color: scheme.onSurface),
         hintStyle: textTheme.bodySmall?.copyWith(
-          color: scheme.onSurfaceVariant.withValues(alpha: 0.85),
+          color: scheme.onSurfaceVariant.withValues(alpha: 0.6),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
-            color: scheme.outlineVariant.withValues(alpha: 0.15),
+            color: scheme.outline.withValues(alpha: 0.3),
+            width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(
-            color: scheme.primary.withValues(alpha: 0.2),
-            width: 1.2,
+            color: scheme.primary,
+            width: 2,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: scheme.error,
+            width: 1,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: scheme.error,
+            width: 2,
           ),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: scheme.outline.withValues(alpha: 0.3)),
         ),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 14,
+          horizontal: 16,
           vertical: 14,
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           backgroundColor: scheme.primary,
-          foregroundColor: Colors.white,
+          foregroundColor: scheme.onPrimary,
+          elevation: 2,
+          shadowColor: scheme.primary.withValues(alpha: 0.3),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          textStyle: textTheme.labelLarge,
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+          textStyle: textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: scheme.onSurface,
-          side: BorderSide(color: scheme.outlineVariant.withValues(alpha: 0.2)),
-          backgroundColor: scheme.surfaceContainerLow,
+          foregroundColor: scheme.primary,
+          side: BorderSide(color: scheme.primary.withValues(alpha: 0.5), width: 1.5),
+          backgroundColor: scheme.surfaceContainerLowest,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          textStyle: textTheme.labelLarge,
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+          textStyle: textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         ),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: const Color(0xFF89F5E7),
-        foregroundColor: const Color(0xFF00201D),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        backgroundColor: scheme.tertiary,
+        foregroundColor: scheme.onTertiary,
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: const Color(0xFF89F5E7),
-        linearTrackColor: scheme.surfaceContainer,
-        circularTrackColor: scheme.surfaceContainer,
+        color: scheme.primary,
+        linearTrackColor: scheme.primaryContainer,
+        circularTrackColor: scheme.primaryContainer,
       ),
       dividerTheme: DividerThemeData(
-        color: scheme.outlineVariant.withValues(alpha: 0.24),
-        thickness: 0.8,
+        color: scheme.outlineVariant,
+        thickness: 1,
       ),
       dataTableTheme: DataTableThemeData(
         headingRowColor: WidgetStatePropertyAll(scheme.surfaceContainerLow),
         dataRowColor: WidgetStatePropertyAll(scheme.surfaceContainerLowest),
         headingTextStyle: textTheme.labelMedium?.copyWith(
-          color: scheme.onSurfaceVariant,
-          letterSpacing: 1.0,
+          color: scheme.onSurface,
+          letterSpacing: 0.5,
           fontWeight: FontWeight.w700,
         ),
         dataTextStyle: textTheme.bodySmall?.copyWith(color: scheme.onSurface),
-        dividerThickness: 0,
+        dividerThickness: 1,
+        decoration: BoxDecoration(
+          border: Border.all(color: scheme.outlineVariant),
+          borderRadius: BorderRadius.circular(8),
+        ),
       ),
     );
   }

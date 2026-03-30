@@ -10,13 +10,21 @@ import 'features/customer/customer_pages.dart';
 import 'features/merchant/merchant_pages.dart';
 import 'l10n/app_localizations.dart';
 import 'services/api_client.dart';
+import 'services/notification_service.dart';
 import 'services/session_store.dart';
 import 'state/auth_provider.dart';
 import 'state/feature_providers.dart';
 import 'state/locale_provider.dart';
+import 'state/notification_provider.dart';
 import 'state/theme_provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize notification service
+  await NotificationService().initialize();
+  await NotificationService().requestPermissions();
+  
   runApp(const BareeqApp());
 }
 
@@ -36,6 +44,9 @@ class BareeqApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => ThemeProvider(store: sessionStore),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => InAppNotificationProvider(),
         ),
         ProxyProvider<AuthProvider, ApiClient>(
           update: (_, auth, previous) => ApiClient(token: auth.session?.token),
@@ -69,6 +80,8 @@ class _AppBootstrapState extends State<_AppBootstrap> {
       await context.read<ThemeProvider>().restore();
       if (!mounted) return;
       await context.read<AuthProvider>().restore();
+      if (!mounted) return;
+      await context.read<InAppNotificationProvider>().load();
     });
   }
 
@@ -151,136 +164,136 @@ class _AppBootstrapState extends State<_AppBootstrap> {
         return _protected(
           settings,
           const CustomerDashboardPage(),
-          'Dashboard',
-          'Credit, requests, and transactions',
+          'dashboard',
+          'creditRequestsTransactions',
         );
       case '/customer/requests':
         return _protected(
           settings,
           const CustomerAcceptPurchasePage(),
-          'Accept Purchase',
-          'Review pending purchase requests',
+          'acceptPurchase',
+          'reviewPendingRequests',
         );
       case '/customer/transactions':
         return _protected(
           settings,
           const CustomerTransactionsPage(),
-          'My Transactions',
-          'Search and manage transactions',
+          'myTransactions',
+          'searchManageTransactions',
         );
       case '/customer/repayments':
         return _protected(
           settings,
           const CustomerRepaymentsPage(),
-          'Repayments',
-          'Plans and installment schedule',
+          'repayments',
+          'plansInstallmentSchedule',
         );
       case '/customer/payment':
         return _protected(
           settings,
           const CustomerPaymentPage(),
-          'Payment',
-          'Make a payment and get receipt details',
+          'payment',
+          'makePaymentGetReceipt',
         );
       case '/customer/settings':
         return _protected(
           settings,
           const CustomerSettingsPage(),
-          'Settings',
-          'Profile, security, and preferences',
+          'settings',
+          'profileSecurityPreferences',
         );
 
       case '/merchant/dashboard':
         return _protected(
           settings,
           const MerchantDashboardPage(),
-          'Dashboard',
-          'Requests, settlements, and quick actions',
+          'dashboard',
+          'quickActions',
         );
       case '/merchant/send-request':
         return _protected(
           settings,
           const MerchantSendRequestPage(),
-          'Send Request',
-          'Lookup customer and send purchase request',
+          'sendRequest',
+          'lookupCustomerSendRequest',
         );
       case '/merchant/requests':
         return _protected(
           settings,
           const MerchantPurchaseRequestsPage(),
-          'Purchase Requests',
-          'Track and filter purchase requests',
+          'purchaseRequests',
+          'trackFilterRequests',
         );
       case '/merchant/transactions':
         return _protected(
           settings,
           const MerchantTransactionsPage(),
-          'Transactions',
-          'View transaction details and status',
+          'transactions',
+          'viewTransactionDetails',
         );
       case '/merchant/settlements':
         return _protected(
           settings,
           const MerchantSettlementsPage(),
-          'Settlements',
-          'Review settlements and request withdrawal',
+          'settlements',
+          'reviewSettlementsRequest',
         );
       case '/merchant/settings':
         return _protected(
           settings,
           const MerchantSettingsPage(),
-          'Settings',
-          'Profile, banking, and branches',
+          'settings',
+          'profileSecurityPreferences',
         );
 
       case '/admin/dashboard':
         return _protected(
           settings,
           const AdminDashboardPage(),
-          'Admin Dashboard',
-          'System KPIs and activity',
+          'adminDashboard',
+          'systemKPIsActivity',
         );
       case '/admin/users':
         return _protected(
           settings,
           const AdminUsersPage(),
-          'Users',
-          'Role and status management',
+          'users',
+          'roleStatusManagement',
         );
       case '/admin/customers':
         return _protected(
           settings,
           const AdminCustomersPage(),
-          'Customers',
-          'Credit and customer status oversight',
+          'customers',
+          'creditCustomerOversight',
         );
       case '/admin/merchants':
         return _protected(
           settings,
           const AdminMerchantsPage(),
-          'Merchants',
-          'Merchant performance and moderation',
+          'merchants',
+          'merchantPerformanceModeration',
         );
       case '/admin/transactions':
         return _protected(
           settings,
           const AdminTransactionsPage(),
-          'Transactions',
-          'System transaction tracking',
+          'transactions',
+          'viewTransactionDetails',
         );
       case '/admin/settlements':
         return _protected(
           settings,
           const AdminSettlementsPage(),
-          'Settlements',
-          'Settlement operations and monitoring',
+          'settlements',
+          'settlementOperationsMonitoring',
         );
       case '/admin/settings':
         return _protected(
           settings,
           const AdminSettingsPage(),
-          'Settings',
-          'Profile and system preferences',
+          'settings',
+          'profileSecurityPreferences',
         );
       default:
         return _material(
@@ -297,8 +310,8 @@ class _AppBootstrapState extends State<_AppBootstrap> {
   MaterialPageRoute<dynamic> _protected(
     RouteSettings settings,
     Widget page,
-    String title,
-    String subtitle,
+    String titleKey,
+    String subtitleKey,
   ) {
     return MaterialPageRoute(
       settings: settings,
@@ -309,10 +322,10 @@ class _AppBootstrapState extends State<_AppBootstrap> {
         final localeProvider = context.read<LocaleProvider>();
         final themeProvider = context.read<ThemeProvider>();
         return AppScaffold(
-          title: title,
-          subtitle: subtitle,
+          title: l10n.t(titleKey),
+          subtitle: l10n.t(subtitleKey),
           currentRoute: settings.name ?? _homeRouteForRole(role),
-          roleMenuItems: _menuForRole(role),
+          roleMenuItems: _menuForRole(role, context),
           body: page,
           onLogout: () async {
             await auth.logout();
@@ -356,108 +369,109 @@ class _AppBootstrapState extends State<_AppBootstrap> {
     return '/admin/settings';
   }
 
-  List<RoleMenuItem> _menuForRole(String role) {
+  List<RoleMenuItem> _menuForRole(String role, BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     if (role == 'customer') {
-      return const [
+      return [
         RoleMenuItem(
-          label: 'Dashboard',
+          label: l10n.t('dashboard'),
           route: '/customer/dashboard',
           icon: Icons.dashboard_outlined,
         ),
         RoleMenuItem(
-          label: 'Accept Purchase',
+          label: l10n.t('acceptPurchase'),
           route: '/customer/requests',
           icon: Icons.playlist_add_check_circle_outlined,
         ),
         RoleMenuItem(
-          label: 'Transactions',
+          label: l10n.t('transactions'),
           route: '/customer/transactions',
           icon: Icons.receipt_long_outlined,
         ),
         RoleMenuItem(
-          label: 'Repayments',
+          label: l10n.t('repayments'),
           route: '/customer/repayments',
           icon: Icons.calendar_month_outlined,
         ),
         RoleMenuItem(
-          label: 'Payment',
+          label: l10n.t('payment'),
           route: '/customer/payment',
           icon: Icons.payments_outlined,
         ),
         RoleMenuItem(
-          label: 'Settings',
+          label: l10n.t('settings'),
           route: '/customer/settings',
           icon: Icons.settings_outlined,
         ),
       ];
     }
     if (role == 'merchant') {
-      return const [
+      return [
         RoleMenuItem(
-          label: 'Dashboard',
+          label: l10n.t('dashboard'),
           route: '/merchant/dashboard',
           icon: Icons.dashboard_outlined,
         ),
         RoleMenuItem(
-          label: 'Send Request',
+          label: l10n.t('sendRequest'),
           route: '/merchant/send-request',
           icon: Icons.send_outlined,
         ),
         RoleMenuItem(
-          label: 'Requests',
+          label: l10n.t('requests'),
           route: '/merchant/requests',
           icon: Icons.request_page_outlined,
         ),
         RoleMenuItem(
-          label: 'Transactions',
+          label: l10n.t('transactions'),
           route: '/merchant/transactions',
           icon: Icons.receipt_outlined,
         ),
         RoleMenuItem(
-          label: 'Settlements',
+          label: l10n.t('settlements'),
           route: '/merchant/settlements',
           icon: Icons.account_balance_wallet_outlined,
         ),
         RoleMenuItem(
-          label: 'Settings',
+          label: l10n.t('settings'),
           route: '/merchant/settings',
           icon: Icons.settings_outlined,
         ),
       ];
     }
-    return const [
+    return [
       RoleMenuItem(
-        label: 'Dashboard',
+        label: l10n.t('dashboard'),
         route: '/admin/dashboard',
         icon: Icons.dashboard_outlined,
       ),
       RoleMenuItem(
-        label: 'Users',
+        label: l10n.t('users'),
         route: '/admin/users',
         icon: Icons.groups_outlined,
       ),
       RoleMenuItem(
-        label: 'Customers',
+        label: l10n.t('customers'),
         route: '/admin/customers',
         icon: Icons.person_outline,
       ),
       RoleMenuItem(
-        label: 'Merchants',
+        label: l10n.t('merchants'),
         route: '/admin/merchants',
         icon: Icons.storefront_outlined,
       ),
       RoleMenuItem(
-        label: 'Transactions',
+        label: l10n.t('transactions'),
         route: '/admin/transactions',
         icon: Icons.receipt_long_outlined,
       ),
       RoleMenuItem(
-        label: 'Settlements',
+        label: l10n.t('settlements'),
         route: '/admin/settlements',
         icon: Icons.account_balance_outlined,
       ),
       RoleMenuItem(
-        label: 'Settings',
+        label: l10n.t('settings'),
         route: '/admin/settings',
         icon: Icons.settings_outlined,
       ),

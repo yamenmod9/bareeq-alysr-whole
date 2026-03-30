@@ -108,6 +108,7 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
         : (width >= 720 ? 3 : (width >= 360 ? 2 : 1));
     final requestState = context.watch<MerchantRequestsProvider>().state;
     final settlementState = context.watch<MerchantSettlementsProvider>().state;
+    final l10n = AppLocalizations.of(context);
     if (loading) return const LoadingSkeletonList(count: 4);
     if (error != null) return ErrorStateCard(message: error!, onRetry: _load);
     final d = dashboard ?? {};
@@ -158,7 +159,7 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Settlement balance',
+                l10n.t('settlementBalance'),
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                   color: Colors.white70,
                   letterSpacing: 1.0,
@@ -179,7 +180,7 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                 children: [
                   Chip(
                     label: Text(
-                      'Total settled ${formatSar(d['total_settled'])}',
+                      '${l10n.t('totalSettled')} ${formatSar(d['total_settled'])}',
                     ),
                     backgroundColor: summaryChipBg,
                     labelStyle: Theme.of(
@@ -188,7 +189,7 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                     side: BorderSide.none,
                   ),
                   Chip(
-                    label: Text('Transactions ${d['total_transactions'] ?? 0}'),
+                    label: Text('${l10n.t('totalTransactions')} ${d['total_transactions'] ?? 0}'),
                     backgroundColor: summaryChipBg,
                     labelStyle: Theme.of(
                       context,
@@ -210,22 +211,22 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
           childAspectRatio: _kpiAspectRatio(context),
           children: [
             KpiCard(
-              label: 'Request count',
+              label: l10n.t('requestCount'),
               value: '${d['total_transactions'] ?? 0}',
               icon: Icons.request_page_outlined,
             ),
             KpiCard(
-              label: 'Approved requests',
+              label: l10n.t('approvedRequests'),
               value: '$approvedRequests',
               icon: Icons.task_alt_outlined,
             ),
             KpiCard(
-              label: 'Settlement totals',
+              label: l10n.t('settlementTotals'),
               value: formatSar(d['total_settled']),
               icon: Icons.assured_workload_outlined,
             ),
             KpiCard(
-              label: 'Available settlement balance',
+              label: l10n.t('availableSettlementBalance'),
               value: formatSar(d['pending_settlement']),
               icon: Icons.account_balance_wallet_outlined,
             ),
@@ -239,7 +240,7 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Quick actions',
+                  l10n.t('quickActions'),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 10),
@@ -258,7 +259,7 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                           '/merchant/send-request',
                         ),
                         icon: const Icon(Icons.send_outlined),
-                        label: const Text('Send'),
+                        label: Text(l10n.t('send')),
                       ),
                       OutlinedButton.icon(
                         onPressed: () => Navigator.pushReplacementNamed(
@@ -266,7 +267,7 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                           '/merchant/settlements',
                         ),
                         icon: const Icon(Icons.account_balance_wallet_outlined),
-                        label: const Text('Settlements'),
+                        label: Text(l10n.t('settlements')),
                       ),
                       OutlinedButton.icon(
                         onPressed: () => Navigator.pushReplacementNamed(
@@ -274,7 +275,7 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                           '/merchant/requests',
                         ),
                         icon: const Icon(Icons.search_outlined),
-                        label: const Text('Requests'),
+                        label: Text(l10n.t('requests')),
                       ),
                     ],
                   )
@@ -289,7 +290,7 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                           '/merchant/send-request',
                         ),
                         icon: const Icon(Icons.send_outlined),
-                        label: const Text('Send request'),
+                        label: Text(l10n.t('sendRequestBtn')),
                       ),
                       OutlinedButton.icon(
                         onPressed: () => Navigator.pushReplacementNamed(
@@ -297,7 +298,7 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                           '/merchant/settlements',
                         ),
                         icon: const Icon(Icons.account_balance_wallet_outlined),
-                        label: const Text('View settlements'),
+                        label: Text(l10n.t('viewSettlements')),
                       ),
                       OutlinedButton.icon(
                         onPressed: () => Navigator.pushReplacementNamed(
@@ -305,7 +306,7 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                           '/merchant/requests',
                         ),
                         icon: const Icon(Icons.search_outlined),
-                        label: const Text('Review requests'),
+                        label: Text(l10n.t('reviewRequests')),
                       ),
                     ],
                   ),
@@ -325,14 +326,14 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Sales over time (7d)',
+                        l10n.t('salesOverTime7d'),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 4),
                       Text(
                         transactions.isEmpty
-                            ? 'Waiting for transaction history from backend'
-                            : 'Based on live merchant transactions',
+                            ? l10n.t('waitingForHistory')
+                            : l10n.t('basedOnLiveTransactions'),
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: scheme.onSurfaceVariant,
                         ),
@@ -452,30 +453,30 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Performance quality',
+                        l10n.t('performanceQuality'),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 10),
                       metricRow(
-                        'Request approval rate',
+                        l10n.t('requestApprovalRate'),
                         approvalRate,
                         const Color(0xFF0C9488),
                       ),
                       const SizedBox(height: 10),
                       metricRow(
-                        'Settlement processing health',
+                        l10n.t('settlementProcessingHealth'),
                         settlementHealth,
                         scheme.secondary,
                       ),
                       const SizedBox(height: 10),
                       metricRow(
-                        'Transaction approvals in stream',
+                        l10n.t('transactionApprovalsInStream'),
                         approvedShare,
                         const Color(0xFF89F5E7),
                       ),
                       const SizedBox(height: 10),
                       metricRow(
-                        'Transaction pending share',
+                        l10n.t('transactionPendingShare'),
                         pendingShare,
                         scheme.error,
                       ),
@@ -485,12 +486,12 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                         runSpacing: 8,
                         children: [
                           Chip(
-                            label: Text('Approved ${statusCounts['approved']}'),
+                            label: Text('${l10n.t('approved')} ${statusCounts['approved']}'),
                           ),
                           Chip(
-                            label: Text('Pending ${statusCounts['pending']}'),
+                            label: Text('${l10n.t('pending')} ${statusCounts['pending']}'),
                           ),
-                          Chip(label: Text('Other ${statusCounts['other']}')),
+                          Chip(label: Text('${l10n.t('other')} ${statusCounts['other']}')),
                         ],
                       ),
                     ],
@@ -530,14 +531,14 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Pending requests',
+                        l10n.t('pendingRequests'),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 10),
                       if (requestState.loading)
                         const LoadingSkeletonList(count: 3)
                       else if ((requestState.data ?? []).isEmpty)
-                        const EmptyStateCard(message: 'No pending requests')
+                        EmptyStateCard(message: l10n.t('noPendingRequests'))
                       else
                         ...requestState.data!
                             .where(
@@ -556,7 +557,7 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                                 child: ListTile(
                                   title: Text(
                                     e['customer_name']?.toString() ??
-                                        'Customer',
+                                        l10n.t('customer'),
                                   ),
                                   subtitle: Text(formatSar(e['amount'])),
                                   trailing: StatusChip(
@@ -579,14 +580,14 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Recent settlements',
+                        l10n.t('recentSettlements'),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 10),
                       if (settlementState.loading)
                         const LoadingSkeletonList(count: 3)
                       else if ((settlementState.data ?? []).isEmpty)
-                        const EmptyStateCard(message: 'No settlements yet')
+                        EmptyStateCard(message: l10n.t('noSettlements'))
                       else
                         ...settlementState.data!
                             .take(4)
@@ -598,7 +599,7 @@ class _MerchantDashboardPageState extends State<MerchantDashboardPage> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: ListTile(
-                                  title: Text('Settlement ${e['id']}'),
+                                  title: Text('${l10n.t('settlements')} ${e['id']}'),
                                   subtitle: Text(formatSar(e['net_amount'])),
                                   trailing: StatusChip(
                                     e['status']?.toString() ?? '-',
@@ -662,11 +663,12 @@ class _MerchantSendRequestPageState extends State<MerchantSendRequestPage> {
 
   Future<void> _lookup() async {
     final customerCode = lookupCtrl.text.trim().toUpperCase();
+    final l10n = AppLocalizations.of(context);
     if (!RegExp(r'^[A-Z0-9]{8}$').hasMatch(customerCode)) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Enter a valid 8-character customer code'),
+        SnackBar(
+          content: Text(l10n.t('enterValid8CharCode')),
         ),
       );
       return;
@@ -684,21 +686,23 @@ class _MerchantSendRequestPageState extends State<MerchantSendRequestPage> {
   }
 
   Future<void> _send() async {
+    final l10n = AppLocalizations.of(context);
     if (customer == null) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('Validate customer first')));
+      ).showSnackBar(SnackBar(content: Text(l10n.t('validateCustomerFirst'))));
       return;
     }
     final unitPrice = double.tryParse(unitPriceCtrl.text.trim()) ?? 0;
     final quantity = int.tryParse(quantityCtrl.text.trim()) ?? 1;
     if (unitPrice <= 0 || quantity <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Invalid amount or quantity')),
+        SnackBar(content: Text(l10n.t('invalidAmountOrQuantity'))),
       );
       return;
     }
     final amount = unitPrice * quantity;
+    
     try {
       await context.read<ApiClient>().sendPurchaseRequest(
         customerId: customer!['id'] as int,
@@ -710,7 +714,7 @@ class _MerchantSendRequestPageState extends State<MerchantSendRequestPage> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('Request sent')));
+      ).showSnackBar(SnackBar(content: Text(l10n.t('requestSent'))));
     } on ApiException catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(
@@ -917,6 +921,7 @@ class _MerchantPurchaseRequestsPageState
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
     final state = context.watch<MerchantRequestsProvider>().state;
     if (state.loading) return const LoadingSkeletonList();
     if (state.error != null)
@@ -927,7 +932,7 @@ class _MerchantPurchaseRequestsPageState
         ),
       );
     final data = state.data ?? [];
-    if (data.isEmpty) return const EmptyStateCard(message: 'No requests');
+    if (data.isEmpty) return EmptyStateCard(message: l10n.t('noRequests'));
     return ListView(
       children: data
           .map(
@@ -1007,16 +1012,17 @@ class _MerchantTransactionsPageState extends State<MerchantTransactionsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     if (loading) return const LoadingSkeletonList();
     if (error != null) return ErrorStateCard(message: error!, onRetry: _load);
 
     return PaginatedDataTableCard(
-      columns: const [
-        DataColumn(label: Text('Transaction')),
-        DataColumn(label: Text('Customer')),
-        DataColumn(label: Text('Amount')),
-        DataColumn(label: Text('Status')),
-        DataColumn(label: Text('Date')),
+      columns: [
+        DataColumn(label: Text(l10n.t('transaction'))),
+        DataColumn(label: Text(l10n.t('customerId'))),
+        DataColumn(label: Text(l10n.t('amount'))),
+        DataColumn(label: Text(l10n.t('status'))),
+        DataColumn(label: Text(l10n.t('date'))),
       ],
       rows: rows
           .map(
@@ -1068,8 +1074,9 @@ class _MerchantSettlementsPageState extends State<MerchantSettlementsPage> {
     try {
       await context.read<ApiClient>().requestWithdrawal(amount);
       if (!mounted) return;
+      final l10n = AppLocalizations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Withdrawal request submitted')),
+        SnackBar(content: Text(l10n.t('withdrawalSubmitted'))),
       );
       context.read<MerchantSettlementsProvider>().fetch(
         context.read<ApiClient>(),
@@ -1085,6 +1092,7 @@ class _MerchantSettlementsPageState extends State<MerchantSettlementsPage> {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
     final state = context.watch<MerchantSettlementsProvider>().state;
     if (state.loading) return const LoadingSkeletonList();
     if (state.error != null)
@@ -1154,7 +1162,7 @@ class _MerchantSettlementsPageState extends State<MerchantSettlementsPage> {
         ),
         const SizedBox(height: 10),
         if (data.isEmpty)
-          const EmptyStateCard(message: 'No settlements yet')
+          EmptyStateCard(message: l10n.t('noSettlementsYet'))
         else
           ...data.map(
             (e) => Card(
@@ -1239,9 +1247,10 @@ class _MerchantSettingsPageState extends State<MerchantSettingsPage> {
       'phone': _phoneCtrl.text.trim(),
     });
     if (!mounted) return;
+    final l10n = AppLocalizations.of(context);
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(const SnackBar(content: Text('Profile settings saved')));
+    ).showSnackBar(SnackBar(content: Text(l10n.t('profileSaved'))));
   }
 
   Future<void> _logout() async {
@@ -1268,36 +1277,36 @@ class _MerchantSettingsPageState extends State<MerchantSettingsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Profile',
+                    l10n.t('profile'),
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 10),
                   AppFormField(
                     controller: _shopCtrl,
-                    label: 'Shop name',
+                    label: l10n.t('shopName'),
                     validator: (v) => (v ?? '').trim().isEmpty
-                        ? 'Shop name is required'
+                        ? l10n.t('shopNameRequired')
                         : null,
                   ),
                   const SizedBox(height: 8),
                   AppFormField(
                     controller: _emailCtrl,
-                    label: 'Business email',
+                    label: l10n.t('businessEmail'),
                     keyboardType: TextInputType.emailAddress,
                     validator: (v) =>
-                        (v ?? '').contains('@') ? null : 'Enter a valid email',
+                        (v ?? '').contains('@') ? null : l10n.t('enterValidEmail'),
                   ),
                   const SizedBox(height: 8),
                   AppFormField(
                     controller: _phoneCtrl,
-                    label: 'Business phone',
+                    label: l10n.t('businessPhone'),
                     keyboardType: TextInputType.phone,
                   ),
                   const SizedBox(height: 10),
                   Align(
                     alignment: Alignment.centerRight,
                     child: AppPrimaryButton(
-                      label: 'Save profile',
+                      label: l10n.t('saveProfile'),
                       onPressed: _saveProfile,
                     ),
                   ),
@@ -1306,10 +1315,10 @@ class _MerchantSettingsPageState extends State<MerchantSettingsPage> {
             ),
           ),
         ),
-        const Card(
+        Card(
           child: ListTile(
-            title: Text('Banking'),
-            subtitle: Text('Bank name, account number, IBAN'),
+            title: Text(l10n.t('banking')),
+            subtitle: Text(l10n.t('bankAccountInfo')),
           ),
         ),
         Card(
@@ -1323,7 +1332,7 @@ class _MerchantSettingsPageState extends State<MerchantSettingsPage> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                'Use real-time settlement status in the Settlements page to confirm payout state before requesting withdrawal.',
+                l10n.t('settlementStatusHint'),
                 style: Theme.of(
                   context,
                 ).textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
@@ -1335,8 +1344,8 @@ class _MerchantSettingsPageState extends State<MerchantSettingsPage> {
           child: SwitchListTile(
             value: branchAlerts,
             onChanged: (value) => setState(() => branchAlerts = value),
-            title: const Text('Branch alerts'),
-            subtitle: const Text('Notify when a branch changes status'),
+            title: Text(l10n.t('branchAlerts')),
+            subtitle: Text(l10n.t('branchAlertsDesc')),
           ),
         ),
         Card(

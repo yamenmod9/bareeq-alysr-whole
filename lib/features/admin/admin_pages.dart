@@ -37,6 +37,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
     final state = context.watch<AdminStatsProvider>().state;
     if (state.loading) return const LoadingSkeletonList();
     if (state.error != null)
@@ -180,11 +181,11 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                         ),
                         child: ListTile(
                           leading: const Icon(Icons.group_outlined),
-                          title: const Text('User to customer ratio'),
+                          title: Text(l10n.t('userToCustomerRatio')),
                           subtitle: Text(
                             totalCustomers == 0
-                                ? 'No customer data yet'
-                                : '${(totalUsers / totalCustomers).toStringAsFixed(2)} users/customer',
+                                ? l10n.t('noDataAvailable')
+                                : '${(totalUsers / totalCustomers).toStringAsFixed(2)}',
                           ),
                         ),
                       ),
@@ -196,11 +197,11 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                         ),
                         child: ListTile(
                           leading: const Icon(Icons.pending_actions_outlined),
-                          title: const Text('Pending settlements load'),
+                          title: Text(l10n.t('pendingSettlementsLoad')),
                           subtitle: Text(
                             totalTransactions == 0
-                                ? 'No transactions yet'
-                                : '${((pendingSettlements / totalTransactions) * 100).toStringAsFixed(2)}% of transactions',
+                                ? l10n.t('noDataAvailable')
+                                : '${((pendingSettlements / totalTransactions) * 100).toStringAsFixed(2)}%',
                           ),
                         ),
                       ),
@@ -212,7 +213,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                         ),
                         child: ListTile(
                           leading: const Icon(Icons.health_and_safety_outlined),
-                          title: const Text('Operational status'),
+                          title: Text(l10n.t('operationalStatus')),
                           subtitle: Text(operational),
                           trailing: StatusChip(operational),
                         ),
@@ -371,6 +372,7 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
     if (loading) return const LoadingSkeletonList();
     if (error != null) return ErrorStateCard(message: error!, onRetry: _load);
 
@@ -387,14 +389,14 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
               spacing: 10,
               runSpacing: 10,
               children: [
-                Chip(label: Text('Total users: $total')),
-                Chip(label: Text('Active: $active')),
+                Chip(label: Text('${l10n.t('totalUsers')}: $total')),
+                Chip(label: Text('${l10n.t('active')}: $active')),
                 Chip(
                   backgroundColor: suspended > 0
                       ? scheme.errorContainer
                       : scheme.surfaceContainerLow,
                   label: Text(
-                    'Suspended: $suspended',
+                    '${l10n.t('inactive')}: $suspended',
                     style: TextStyle(
                       color: suspended > 0
                           ? scheme.onErrorContainer
@@ -408,12 +410,12 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
         ),
         const SizedBox(height: 10),
         PaginatedDataTableCard(
-          columns: const [
-            DataColumn(label: Text('ID')),
-            DataColumn(label: Text('Name')),
-            DataColumn(label: Text('Email')),
-            DataColumn(label: Text('Role')),
-            DataColumn(label: Text('Active')),
+          columns: [
+            DataColumn(label: Text(l10n.t('id'))),
+            DataColumn(label: Text(l10n.t('name'))),
+            DataColumn(label: Text(l10n.t('email'))),
+            DataColumn(label: Text(l10n.t('role'))),
+            DataColumn(label: Text(l10n.t('active'))),
           ],
           rows: rows
               .map(
@@ -632,6 +634,7 @@ class _AdminTransactionsPageState extends State<AdminTransactionsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     if (loading) return const LoadingSkeletonList();
     if (error != null) return ErrorStateCard(message: error!, onRetry: _load);
 
@@ -641,20 +644,20 @@ class _AdminTransactionsPageState extends State<AdminTransactionsPage> {
           child: Padding(
             padding: const EdgeInsets.all(14),
             child: Text(
-              'Live transaction stream from backend: ${rows.length} records',
+              '${l10n.t('transactions')}: ${rows.length}',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
         ),
         const SizedBox(height: 10),
         PaginatedDataTableCard(
-          columns: const [
-            DataColumn(label: Text('ID')),
-            DataColumn(label: Text('Customer')),
-            DataColumn(label: Text('Merchant')),
-            DataColumn(label: Text('Amount')),
-            DataColumn(label: Text('Remaining')),
-            DataColumn(label: Text('Status')),
+          columns: [
+            DataColumn(label: Text(l10n.t('id'))),
+            DataColumn(label: Text(l10n.t('customerId'))),
+            DataColumn(label: Text(l10n.t('merchantId'))),
+            DataColumn(label: Text(l10n.t('amount'))),
+            DataColumn(label: Text(l10n.t('remaining'))),
+            DataColumn(label: Text(l10n.t('status'))),
           ],
           rows: rows
               .map(
@@ -794,9 +797,10 @@ class _AdminSettingsPageState extends State<AdminSettingsPage> {
       'email': _emailCtrl.text.trim(),
     });
     if (!mounted) return;
+    final l10n = AppLocalizations.of(context);
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(const SnackBar(content: Text('Profile settings saved')));
+    ).showSnackBar(SnackBar(content: Text(l10n.t('profileSaved'))));
   }
 
   Future<void> _logout() async {
@@ -857,10 +861,8 @@ class _AdminSettingsPageState extends State<AdminSettingsPage> {
           child: SwitchListTile(
             value: moderationAlerts,
             onChanged: (value) => setState(() => moderationAlerts = value),
-            title: const Text('Moderation alerts'),
-            subtitle: const Text(
-              'Notify on high-risk approvals and rejections',
-            ),
+            title: Text(l10n.t('moderationAlerts')),
+            subtitle: Text(l10n.t('moderationAlertsDesc')),
           ),
         ),
         Card(

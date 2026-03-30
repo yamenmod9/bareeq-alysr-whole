@@ -725,45 +725,10 @@ class _AppScaffoldState extends State<AppScaffold> {
   }
 
   Widget _topNavItem(BuildContext context, RoleMenuItem item, bool selected) {
-    final scheme = Theme.of(context).colorScheme;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return InkWell(
-      borderRadius: BorderRadius.circular(8),
-      onTap: () {
-        if (widget.currentRoute != item.route) {
-          Navigator.pushReplacementNamed(context, item.route);
-        }
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              item.label,
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: selected
-                    ? (isDark ? scheme.tertiary : scheme.primaryContainer)
-                    : scheme.onSurfaceVariant,
-                fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 4),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 160),
-              curve: Curves.easeOut,
-              height: 2,
-              width: selected ? 28 : 0,
-              decoration: BoxDecoration(
-                color: selected
-                    ? (isDark ? scheme.tertiary : scheme.primaryContainer)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(999),
-              ),
-            ),
-          ],
-        ),
-      ),
+    return _TopNavItem(
+      item: item,
+      selected: selected,
+      currentRoute: widget.currentRoute,
     );
   }
 
@@ -813,17 +778,17 @@ class _AppScaffoldState extends State<AppScaffold> {
     final mobileGradient = isDark
         ? [const Color(0xFF071219), const Color(0xFF0A161E), scheme.surface]
         : [
-            scheme.surfaceContainerHigh.withValues(alpha: 0.76),
-            scheme.surfaceContainerLow.withValues(alpha: 0.72),
-            scheme.surface,
+            const Color(0xFFF5F7FA),
+            const Color(0xFFFAFBFC),
+            const Color(0xFFFFFFFF),
           ];
 
     final desktopGradient = isDark
         ? [const Color(0xFF061018), const Color(0xFF0A161E), scheme.surface]
         : [
-            scheme.surfaceContainerHigh.withValues(alpha: 0.78),
-            scheme.surfaceContainerLow.withValues(alpha: 0.72),
-            scheme.surface,
+            const Color(0xFFF7F9FB),
+            const Color(0xFFFBFCFD),
+            const Color(0xFFFFFFFF),
           ];
 
     final content = Column(
@@ -890,16 +855,18 @@ class _AppScaffoldState extends State<AppScaffold> {
                         height: 30,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          gradient: const LinearGradient(
+                          gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
-                            colors: [Color(0xFF000000), Color(0xFF131B2E)],
+                            colors: isDark
+                                ? [const Color(0xFF000000), const Color(0xFF131B2E)]
+                                : [scheme.primary, scheme.primaryContainer],
                           ),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.account_balance_wallet_outlined,
                           size: 18,
-                          color: Colors.white,
+                          color: isDark ? Colors.white : scheme.onPrimary,
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -923,15 +890,14 @@ class _AppScaffoldState extends State<AppScaffold> {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: widget.roleMenuItems
-                        .map(
-                          (item) => _topNavItem(
-                            context,
-                            item,
-                            widget.currentRoute == item.route,
-                          ),
-                        )
-                        .toList(),
+                    children: [
+                      for (final item in widget.roleMenuItems)
+                        _topNavItem(
+                          context,
+                          item,
+                          widget.currentRoute == item.route,
+                        ),
+                    ],
                   ),
                 ),
               ),
@@ -947,15 +913,14 @@ class _AppScaffoldState extends State<AppScaffold> {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: widget.roleMenuItems
-                          .map(
-                            (item) => _topNavItem(
-                              context,
-                              item,
-                              widget.currentRoute == item.route,
-                            ),
-                          )
-                          .toList(),
+                      children: [
+                        for (final item in widget.roleMenuItems)
+                          _topNavItem(
+                            context,
+                            item,
+                            widget.currentRoute == item.route,
+                          ),
+                      ],
                     ),
                   ),
                 ),
@@ -1039,6 +1004,64 @@ class _AppScaffoldState extends State<AppScaffold> {
               ],
             ),
       bottomNavigationBar: null,
+    );
+  }
+}
+
+// Optimized navigation item widget to prevent unnecessary rebuilds
+class _TopNavItem extends StatelessWidget {
+  final RoleMenuItem item;
+  final bool selected;
+  final String currentRoute;
+
+  const _TopNavItem({
+    required this.item,
+    required this.selected,
+    required this.currentRoute,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
+    return InkWell(
+      borderRadius: BorderRadius.circular(8),
+      onTap: () {
+        if (currentRoute != item.route) {
+          Navigator.pushReplacementNamed(context, item.route);
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              item.label,
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: selected
+                    ? (isDark ? scheme.tertiary : scheme.primary)
+                    : scheme.onSurfaceVariant,
+                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 4),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOut,
+              height: 2,
+              width: selected ? 28 : 0,
+              decoration: BoxDecoration(
+                color: selected
+                    ? (isDark ? scheme.tertiary : scheme.primary)
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(999),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

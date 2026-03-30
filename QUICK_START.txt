@@ -1,0 +1,119 @@
+╔════════════════════════════════════════════════════════════════╗
+║                  BAREEQ AL-YUSR - QUICK START                  ║
+╚════════════════════════════════════════════════════════════════╝
+
+📍 Location: d:\Programming\bareeq-alysr-whole
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  📦 FIRST TIME SETUP (DO THIS ONCE)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Double-click: INSTALL_ALL.bat
+
+This will install:
+  ✓ Python backend dependencies
+  ✓ Flutter app dependencies
+
+Takes 5-10 minutes. Run this FIRST!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🚀 AFTER INSTALLATION - START SERVERS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Double-click: START_EVERYTHING.bat
+   → Starts backend server automatically
+   → Opens health check in browser
+
+2. Open NEW Command Prompt and run:
+   cd d:\Programming\bareeq-alysr-whole
+   flutter run
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  📝 OR MANUAL METHOD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Terminal 1 (Backend):
+  cd d:\Programming\bareeq-alysr-whole\backend
+  python run.py
+
+Terminal 2 (Flutter):
+  cd d:\Programming\bareeq-alysr-whole
+  flutter run
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ✅ VERIFY IT'S WORKING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Backend:  http://localhost:8000/health
+         (Should see: {"status": "healthy"})
+
+Flutter: Check app connects and can login
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🧪 TEST INSTALLMENT FEATURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+As Merchant:
+  → Send Request → Enter 600 SAR → Send
+
+As Customer:
+  → Requests Tab → Accept
+  → Select "6 months" → Confirm
+  → Transactions Tab → Check "Installment Plan" column
+  ✅ Should show "6 months"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  📁 IMPORTANT FILES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+INSTALL_ALL.bat           → Install dependencies (run first!)
+START_EVERYTHING.bat      → Start backend + guide
+start-backend.bat         → Start backend only
+start-flutter.bat         → Start Flutter only
+LOCAL_SETUP_README.md     → Full documentation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ⚙️ CONFIGURATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Backend:   localhost:8000
+Flutter:   lib/core/config/app_config.dart
+  Current: http://10.0.2.2:8000 (Android Emulator)
+
+For iOS Simulator: Change to http://localhost:8000
+For Physical Device: Change to http://YOUR_IP:8000
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🆘 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Connection Error:
+  1. Check backend window is still open
+  2. Visit http://localhost:8000/health
+  3. Restart backend
+
+Build Error:
+  flutter clean
+  flutter pub get
+  flutter run
+
+Backend Error:
+  cd backend
+  pip install -r requirements.txt
+  python run.py
+
+Dependencies Error:
+  Run INSTALL_ALL.bat again
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ✨ WHAT'S NEW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Installment plans: 3, 6, 9, 12, 18, 24 months
+✅ Backend saves installment selection
+✅ Transactions show installment column
+✅ Repayment schedules display correctly
+✅ Full Arabic localization
+✅ No more English hardcoded strings
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

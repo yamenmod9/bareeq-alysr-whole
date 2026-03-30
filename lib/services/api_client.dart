@@ -85,7 +85,11 @@ class ApiClient {
   Future<List<dynamic>> customerTransactions() async => List<dynamic>.from(await _request(method: 'GET', path: '/customers/me/transactions') as List);
   Future<List<dynamic>> customerRepaymentPlans() async => List<dynamic>.from(await _request(method: 'GET', path: '/customers/repayment-plans') as List);
   Future<List<dynamic>> customerUpcomingPayments() async => List<dynamic>.from(await _request(method: 'GET', path: '/customers/upcoming-payments') as List);
-  Future<void> acceptPurchaseRequest(int requestId) async => _request(method: 'POST', path: '/customers/purchase-requests/$requestId/accept', body: {});
+  Future<void> acceptPurchaseRequest(int requestId, {int installmentMonths = 0}) async => _request(
+    method: 'POST', 
+    path: '/customers/purchase-requests/$requestId/accept', 
+    body: {'installment_months': installmentMonths},
+  );
   Future<void> rejectPurchaseRequest(int requestId, {String? reason}) async => _request(method: 'POST', path: '/customers/purchase-requests/$requestId/reject', body: {'reason': reason});
   Future<void> payTransaction({required int transactionId, required double amount}) async => _request(method: 'POST', path: '/customers/transactions/$transactionId/pay', body: {'amount': amount, 'payment_method': 'card'});
 
@@ -98,7 +102,23 @@ class ApiClient {
     final normalizedCode = customerCode.trim().toUpperCase();
     return Map<String, dynamic>.from(await _request(method: 'GET', path: '/merchants/lookup-customer/$normalizedCode') as Map);
   }
-  Future<void> sendPurchaseRequest({required int customerId, required double amount, required String description, String productName = 'Purchase', int quantity = 1}) async => _request(method: 'POST', path: '/merchants/send-purchase-request', body: {'customer_id': customerId, 'amount': amount, 'description': description, 'product_name': productName, 'quantity': quantity});
+  Future<void> sendPurchaseRequest({
+    required int customerId, 
+    required double amount, 
+    required String description, 
+    String productName = 'Purchase', 
+    int quantity = 1,
+  }) async => _request(
+    method: 'POST', 
+    path: '/merchants/send-purchase-request', 
+    body: {
+      'customer_id': customerId, 
+      'amount': amount, 
+      'description': description, 
+      'product_name': productName, 
+      'quantity': quantity,
+    },
+  );
   Future<void> requestWithdrawal(double amount) async => _request(method: 'POST', path: '/merchants/request-withdrawal', body: {'amount': amount});
 
   Future<Map<String, dynamic>> adminStats() async => Map<String, dynamic>.from(await _request(method: 'GET', path: '/admin/dashboard/stats') as Map);
